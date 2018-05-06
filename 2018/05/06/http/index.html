@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="http学习我本来是打算学习koa，然后写点学习总结。但是当教程中介绍到app.listen(…)时，其中提到app.listen(3000)是http.createServer(app.callback()).listen(3000);的“语法糖”,就让我对http.createSever()方法产生兴趣。于是就开始了追根溯源之旅~ httpcreateServer() 这是node.js封装的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/http/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="http学习我本来是打算学习koa，然后写点学习总结。但是当教程中介绍到app.listen(…)时，其中提到app.listen(3000)是http.createServer(app.callback()).listen(3000);的“语法糖”,就让我对http.createSever()方法产生兴趣。于是就开始了追根溯源之旅~ httpcreateServer() 这是node.js封装的">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=17baf4c7d739b60059c307e588395e4f/d000baa1cd11728b45647b06cafcc3cec3fd2c4c.jpg">
+<meta property="og:updated_time" content="2017-11-03T15:13:56.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="http学习我本来是打算学习koa，然后写点学习总结。但是当教程中介绍到app.listen(…)时，其中提到app.listen(3000)是http.createServer(app.callback()).listen(3000);的“语法糖”,就让我对http.createSever()方法产生兴趣。于是就开始了追根溯源之旅~ httpcreateServer() 这是node.js封装的">
+<meta name="twitter:image" content="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=17baf4c7d739b60059c307e588395e4f/d000baa1cd11728b45647b06cafcc3cec3fd2c4c.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-http" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/http/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.162Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="http学习"><a href="#http学习" class="headerlink" title="http学习"></a>http学习</h1><p>我本来是打算学习koa，然后写点学习总结。但是当教程中介绍到app.listen(…)时，其中提到app.listen(3000)是http.createServer(app.callback()).listen(3000);的“语法糖”,就让我对http.createSever()方法产生兴趣。于是就开始了追根溯源之旅~</p>
+<p><strong>httpcreateServer()</strong></p>
+<p>这是node.js封装的一个http模块的方法，从字面意思看出来就是创建一个http服务器，与之相对应的还有个http.request(),即创建一个客户端。<br>一般的用法是这样：</p>
+<pre><code>var http = require(&apos;http&apos;);
+
+http.createServer(function(req, res) {
+
+// 主页
+if (req.url == &quot;/&quot;) {
+    res.writeHead(200, { &quot;Content-Type&quot;: &quot;text/html&quot; });
+    res.end(&quot;Welcome to the homepage!&quot;);
+}
+
+// About页面
+else if (req.url == &quot;/about&quot;) {
+    res.writeHead(200, { &quot;Content-Type&quot;: &quot;text/html&quot; });
+    res.end(&quot;Welcome to the about page!&quot;);
+}
+
+// 404错误
+else {
+    res.writeHead(404, { &quot;Content-Type&quot;: &quot;text/plain&quot; });
+    res.end(&quot;404 error! File not found.&quot;);
+}
+
+}).listen(8080, &quot;localhost&quot;);
+</code></pre><p>但这仍旧是node.js已经封装好的方法，而我想知道的如何用最原生的语言创建一个http服务器。而在阅读完很多不同语言的实现web服务器的文档后，发现比较核心的有这么2个专业名词。</p>
+<p><strong>超文本传送协议HTTP</strong></p>
+<p>http是个协议，有固定的格式，不同客户端的不同浏览器向万维网服务器请求万维网文档以及服务器把文档传送给浏览器的时候都要遵守它。</p>
+<p>http有以下几个值得注意的特点:</p>
+<ol>
+<li>面向事务。要么所有的信息交换都完成，要么一次都不进行。</li>
+<li>无状态。每一次访问都是独立的，服务器不会记录任何访问之间的关系。</li>
+<li><p>http的报文结构</p>
+<p> (1). 开始行。区分是请求报文还是响应报文</p>
+<p> (2). 首部行。说明浏览器，服务器或者报文主体的一些信息。</p>
+<p> (3). 实体主体。</p>
+</li>
+<li><p>HTTP/1.1协议使用了持续连接，即服务器发送响应后在一段时间内保持与客户端的连接，使得服务器可以继续在连接上发送后续的http请求报文和响应报文。</p>
+</li>
+</ol>
+<p><strong>Socket</strong></p>
+<p><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=17baf4c7d739b60059c307e588395e4f/d000baa1cd11728b45647b06cafcc3cec3fd2c4c.jpg" alt="socket"></p>
+<p>socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；做个比喻就是：HTTP是轿车，提供了封装或者显示数据的具体形式；而Socket是发动机，提供了网络通信的能力。<br>其中的很多函数可以自己查阅资料。</p>
+<h1 id="神经网络学习总结"><a href="#神经网络学习总结" class="headerlink" title="神经网络学习总结"></a>神经网络学习总结</h1><h2 id="什么是神经网络？"><a href="#什么是神经网络？" class="headerlink" title="什么是神经网络？"></a>什么是神经网络？</h2><p>我们把大脑看成是一个高度复杂的，非线性的和并行的计算机器，而神经元就是组织它的组成部分；每当触及听觉，视觉，感觉等需要大脑处理的事件时，神经元就在以超级迅速的速度进行特别地计算。</p>
+<pre><code>神经网络是由简单处理单元构成的大规模并行分布式处理器，天然地具有存储经验支持和使之可用地特性。
+</code></pre><p>理解：简单处理单元：神经元。并行：同时处理多个进程。分布式：将某个进程分为多个子进程交给不同的神经元处理。通过学习获得并且存储经验。</p>
+<pre><code>1. 神经网络是通过学习过程从外界环境中获取知识的。
+2. 互连神经元的连接强度，即突触权值，用于存储获取的知识。
+</code></pre><h2 id="神经网络有用的性质和能力"><a href="#神经网络有用的性质和能力" class="headerlink" title="神经网络有用的性质和能力"></a>神经网络有用的性质和能力</h2><p>（理解可能有误，不能全信）</p>
+<h3 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h3><p>“人工神经元可以是线性或者非线性的”。当神经网络在处理一个进程时，得到的信息和输出的信息（转化为动作）并不是线性依赖关系。</p>
+<h3 id="输入输出映射"><a href="#输入输出映射" class="headerlink" title="输入输出映射"></a>输入输出映射</h3><p>“即教师学习，监督学习。利用带标号的训练样例，通过不断调整突触权值重复训练神经网络，直到神经网络达到对突触权值没有显著修正的稳定状态”。理解为不断得让神经网络获得信息，并且不断地改变突触权值直到输出的信息和目标信息极其相似，并且记录下当时的突触权值。</p>
+<h3 id="自适应"><a href="#自适应" class="headerlink" title="自适应"></a>自适应</h3><p>“神经网络具有调整自身突触权值以适应外界环境编号的固有能力”。在环境变化不大时，神经网络看也很容易进行重新训练。在不稳定环境中，它自身可以设计神经网络使得突触权值随时间实时变化。</p>
+<h3 id="证据响应"><a href="#证据响应" class="headerlink" title="证据响应"></a>证据响应</h3><p>神经网络在获得信息后会先对信息进行模式分类，其不仅可以设计不同的提供选择哪一个特定模式的信息，还可以排除一些模糊的模式，提高分类性能。</p>
+<h3 id="上下文信息"><a href="#上下文信息" class="headerlink" title="上下文信息"></a>上下文信息</h3><p>神经网络的每个神经元都受其它神经元全局活动的潜在影响。</p>
+<h3 id="容错性"><a href="#容错性" class="headerlink" title="容错性"></a>容错性</h3><p>当某个神经元或它的连接坏了，其产生的并不是毁灭性的失败，而是缓慢恶化的过程。因为神经网络信息存储是分布的。</p>
+<h2 id="人脑中神经网络分层"><a href="#人脑中神经网络分层" class="headerlink" title="人脑中神经网络分层"></a>人脑中神经网络分层</h2><p>中枢神经系统</p>
+<p>↑</p>
+<p>区域电路</p>
+<p>↑</p>
+<p>局部电路</p>
+<p>↑</p>
+<p>神经元</p>
+<p>↑</p>
+<p>树突树</p>
+<p>↑</p>
+<p>神经微电路</p>
+<p>↑</p>
+<p>突触</p>
+<p>↑</p>
+<p>分子</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/http/" data-id="cjguhg3sj0009lgwb9k3kz5hh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/06/jsonp&promise/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/goodreading_1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

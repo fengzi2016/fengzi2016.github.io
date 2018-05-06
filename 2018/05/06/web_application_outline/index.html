@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基于node和koa的小型web应用程序开发流程 需求分析，做出ER图。 将ER图转化为实体图（包括实体和属性）。 写好API文档，其中包括技术选型和数据库数据内容，前后台数据传输规范。 数据库创建模式和基本表，当然数据应该保证完整性和保密性。 写后台API，可以通过postman测试。 写前台界面，这个时候我们已经保证前后台数据流通了，页面代码写好后修改一下前台API取得的DOM元素就可以。 最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/web_application_outline/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="基于node和koa的小型web应用程序开发流程 需求分析，做出ER图。 将ER图转化为实体图（包括实体和属性）。 写好API文档，其中包括技术选型和数据库数据内容，前后台数据传输规范。 数据库创建模式和基本表，当然数据应该保证完整性和保密性。 写后台API，可以通过postman测试。 写前台界面，这个时候我们已经保证前后台数据流通了，页面代码写好后修改一下前台API取得的DOM元素就可以。 最">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2017-11-29T11:56:07.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="基于node和koa的小型web应用程序开发流程 需求分析，做出ER图。 将ER图转化为实体图（包括实体和属性）。 写好API文档，其中包括技术选型和数据库数据内容，前后台数据传输规范。 数据库创建模式和基本表，当然数据应该保证完整性和保密性。 写后台API，可以通过postman测试。 写前台界面，这个时候我们已经保证前后台数据流通了，页面代码写好后修改一下前台API取得的DOM元素就可以。 最">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-web_application_outline" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/web_application_outline/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.379Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="基于node和koa的小型web应用程序"><a href="#基于node和koa的小型web应用程序" class="headerlink" title="基于node和koa的小型web应用程序"></a>基于node和koa的小型web应用程序</h1><h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><ol>
+<li>需求分析，做出ER图。</li>
+<li>将ER图转化为实体图（包括实体和属性）。</li>
+<li>写好API文档，其中包括技术选型和数据库数据内容，前后台数据传输规范。</li>
+<li>数据库创建模式和基本表，当然数据应该保证完整性和保密性。</li>
+<li>写后台API，可以通过postman测试。</li>
+<li>写前台界面，这个时候我们已经保证前后台数据流通了，页面代码写好后修改一下前台API取得的DOM元素就可以。</li>
+<li>最后综合，测试，完善，拓展，结束。</li>
+</ol>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p><strong>后台开发环境：</strong> Node.js</p>
+<p><strong>后台开发框架：</strong> koa</p>
+<p><strong>数据库：</strong> Mysql</p>
+<p><strong>应用测试，打包，发布以及服务器部署调整数据库工具：</strong> docker</p>
+<p><strong>前端框架：</strong> react</p>
+<p><strong>前台API：</strong></p>
+<h2 id="涉及的技术"><a href="#涉及的技术" class="headerlink" title="涉及的技术"></a>涉及的技术</h2><ul>
+<li><strong>Node.js</strong></li>
+</ul>
+<p>它是由C++语言编写的后端的Javascript运行环境。支持的编程语言是Javascript，在项目中用于编写后端服务器代码，接受前台js发送给后台的数据以及进行处理。</p>
+<pre><code>Node.js® is a JavaScript runtime built on Chrome&apos;s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js&apos; package ecosystem, npm, is the largest ecosystem of open source libraries in the world. 
+                                                --Node.js官网
+</code></pre><p>特点：</p>
+<ol>
+<li>采用Google Chrome浏览器的V8引擎</li>
+<li>采用事件驱动，异步编程</li>
+<li>有npm作为其资源库</li>
+</ol>
+<ul>
+<li><p><strong>koa</strong></p>
+<p>koa是基于Node.js平台的下一代web开发框架。</p>
+<p><em>为什么我们要用开发框架？</em></p>
+<p>虽然我们可以利用Node.js封装的方法和原生的javascript来写后台的API,但是如果我们使用像express,koa这种框架，代码量和逻辑会变得更简单。</p>
+</li>
+</ul>
+<p><em>为什么要用koa？</em></p>
+<p>koa是express框架的发展，相对与express，koa更轻便和健壮。不同于express基于ES5语法，我们只能使用回调来解决异步问题;而koa是基于ES6的generator，用generator实现了异步,使得代码变得更简洁。尤其是koa2基于ES7,使用Promise并配合async来实现异步。</p>
+<p>  我的理解是Node.js是让javasript可以作为后端编程语言的运行环境，或者说将javascript解析成可以控制电脑进程或者http传输的语言。而koa则是开发的“语法糖”，它封装的很多方法（函数）使得程序员在编写后台API时更简单。</p>
+<ul>
+<li><p><strong>docker</strong></p>
+</li>
+<li><p><strong>Mysql</strong></p>
+</li>
+<li><strong>react</strong></li>
+<li></li>
+</ul>
+<ol>
+<li><p>需求分析<br>用户系统：</p>
+<pre><code>游客：阅读
+用户：阅读，发表，评论
+管理员：审批用户，控制热点
+超级管理员：管理管理员
+</code></pre><p>种类：</p>
+<pre><code>前端
+后端
+安卓
+产品
+设计
+</code></pre></li>
+</ol>
+<ol start="2">
+<li><p>实体</p>
+<p>用户<br>文章<br>评论<br>种类</p>
+<!-- 视频
+图片 -->
+</li>
+</ol>
+<ol start="3">
+<li><p>数据库内容<br>种类表：</p>
+<pre><code>content
+</code></pre><p>用户表：</p>
+<pre><code>user_id  [key]
+user_name
+user_email [key]
+user_pwd
+user_avatar_url
+user_role
+user_activation_code
+user_status
+</code></pre></li>
+</ol>
+<p>文章表:<br>        article_id<br>        article_title<br>        article_content<br>        <!-- article_time --><br>        article_author_id<br>        article_ category</p>
+<p>评论表:<br>        comment_id<br>        comment_content<br>        comment_time<br>        comment_author_id</p>
+<p>用户-文章关系表:<br>      id<br>      user_id<br>      article_id<br>      time</p>
+<p>用户-评论关系表：<br>     id<br>     user_id<br>     article_id<br>     comment_id<br>     time<br>文章-评论关系表：<br>    id<br>    article_id<br>    comment_id<br>    time</p>
+<ol start="4">
+<li><p>API</p>
+</li>
+<li><p>注册||激活码，登录</p>
+</li>
+<li>获取主页</li>
+<li>获取各类别页面</li>
+<li>获取个人中心</li>
+<li>获取某篇文章的详情包括评论</li>
+<li>删除某篇文章</li>
+<li>删除某篇评论</li>
+<li><p>修改个人中心</p>
+<pre><code>修改资料
+
+修改邮箱
+
+修改密码
+</code></pre></li>
+<li>发表评论</li>
+<li>发表文章</li>
+<li>修改文章</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/web_application_outline/" data-id="cjguhg3td000mlgwba8vg463k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/06/2017FinalSummary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/vue-music-learn/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

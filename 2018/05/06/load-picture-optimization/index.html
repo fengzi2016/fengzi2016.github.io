@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="图片加载优化图片加载存在的问题 启动页面加载过多图片 部分图片体积过大  后果会导致页面加载速度慢，页面出现空白区域，浪费流量等等问题。 解决方法 用css,svg,canvas,iconfont代替图片。 使用矢量图替代位图。矢量图使用直线和曲线来描述图形，这些图形的元素是一些点、线、矩形、多边形、圆和弧线等等，它们都是通过数学公式计算获得的。例如一幅花的矢量图形实际上是由线段形成外框轮廓。位图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/load-picture-optimization/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="图片加载优化图片加载存在的问题 启动页面加载过多图片 部分图片体积过大  后果会导致页面加载速度慢，页面出现空白区域，浪费流量等等问题。 解决方法 用css,svg,canvas,iconfont代替图片。 使用矢量图替代位图。矢量图使用直线和曲线来描述图形，这些图形的元素是一些点、线、矩形、多边形、圆和弧线等等，它们都是通过数学公式计算获得的。例如一幅花的矢量图形实际上是由线段形成外框轮廓。位图">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/006P0MECgy1foa8rl3qgyj30pt0n1tab.jpg">
+<meta property="og:updated_time" content="2018-02-09T08:45:09.835Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="图片加载优化图片加载存在的问题 启动页面加载过多图片 部分图片体积过大  后果会导致页面加载速度慢，页面出现空白区域，浪费流量等等问题。 解决方法 用css,svg,canvas,iconfont代替图片。 使用矢量图替代位图。矢量图使用直线和曲线来描述图形，这些图形的元素是一些点、线、矩形、多边形、圆和弧线等等，它们都是通过数学公式计算获得的。例如一幅花的矢量图形实际上是由线段形成外框轮廓。位图">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/mw690/006P0MECgy1foa8rl3qgyj30pt0n1tab.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-load-picture-optimization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/load-picture-optimization/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.281Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h1><h2 id="图片加载存在的问题"><a href="#图片加载存在的问题" class="headerlink" title="图片加载存在的问题"></a>图片加载存在的问题</h2><ol>
+<li>启动页面加载过多图片</li>
+<li>部分图片体积过大</li>
+</ol>
+<h2 id="后果"><a href="#后果" class="headerlink" title="后果"></a>后果</h2><p>会导致页面加载速度慢，页面出现空白区域，浪费流量等等问题。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li><strong>用css,svg,canvas,iconfont代替图片</strong>。</li>
+<li><strong>使用矢量图替代位图</strong>。<strong>矢量图</strong>使用直线和曲线来描述图形，这些图形的元素是一些点、线、矩形、多边形、圆和弧线等等，它们都是通过数学公式计算获得的。例如一幅花的矢量图形实际上是由线段形成外框轮廓。<strong>位图</strong>亦称为点阵图像或绘制图像，是由称作像素（图片元素）的单个点组成的。这些点可以进行不同的排列和染色以构成图样。当放大位图时，可以看见赖以构成整个图像的无数单个方块。</li>
+<li>使用适当的<strong>图片格式进行单位像素优化</strong>。<a href="http://jixianqianduan.com/frontend-weboptimize/2015/11/17/front-end-image-optmize.html" target="_blank" rel="noopener">常用web图片</a>格式如下：</li>
+</ol>
+<p><img src="https://wx3.sinaimg.cn/mw690/006P0MECgy1foa8rl3qgyj30pt0n1tab.jpg" alt="图片格式"></p>
+<ol start="4">
+<li>按照HTTP协议设置合理的<strong>缓存</strong>。<a href="http://www.alloyteam.com/2016/03/discussion-on-web-caching/" target="_blank" rel="noopener">缓存</a></li>
+<li><p> ①使用CSS或者JS进行<strong>预加载</strong> 。如：</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-img:url(http://example.com/1.jpg)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">images[i] = <span class="keyword">new</span> Image()</span><br><span class="line"></span><br><span class="line">images[i].src = <span class="string">`http://example.com/<span class="subst">$&#123;i&#125;</span>.jpg`</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> ②显性预加载：指处于预加载过程时页面有明确的加载提示，比如进度条或者是Loading图标。</p>
+<p> ③隐形预加载：通过推进触屏页面进度的趣味互动的方式。</p>
+</li>
+<li><p>利用<strong>雪碧图</strong>，减少请求次数。</p>
+</li>
+<li>对大部分图片，特别是轮播广告中的图片进行<strong>按设备尺寸裁剪</strong>，减少图片体积，减少网络开销，加快下载速率。不要用大的图再在HTML缩小，要多大图用多大图。</li>
+<li><p><strong>懒加载</strong>。<a href="https://zhuanlan.zhihu.com/p/33370207" target="_blank" rel="noopener">优先加载</a>所见屏幕需要的图片。原理：<br>①先将图片的实际src，记录在data-set属性中。<br>②监听屏幕滚动，计算图片的Y坐标，并计算可视区域的高度height，当Y小于等于(height+scrollTop)时，图片的src的值用data-src的来替换，从而来实现图片的懒加载。</p>
+</li>
+<li><p><strong>使用base64编码代替图片</strong>，但是只适用于图片大小小于2KB且图片引用次数不多的情景。</p>
+</li>
+<li><p><strong>图片压缩</strong>。</p>
+<p>部分平台：</p>
+<p>Kraken (Web) 主页： <a href="https://kraken.io/" target="_blank" rel="noopener">https://kraken.io/</a></p>
+<p>智图 主页： <a href="http://zhitu.tencent.com/" target="_blank" rel="noopener">http://zhitu.tencent.com/</a> 支持原图png转为jpeg和webp(目前不支持bpg)，并提供各种压缩比压缩，目前在tx内部广泛使用。</p>
+</li>
+<li><strong>响应式图片</strong>。通过picture元素，picturefill或平台判断来为不同终端平台输出不同的图片 。</li>
+</ol>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://aotu.io/notes/2016/03/09/img-loading-optimization-in-mobile/index.html" target="_blank" rel="noopener">让图片加载这件事儿变得更美好</a></li>
+<li><a href="https://www.zhihu.com/question/21815101" target="_blank" rel="noopener">前端开发中，对图片的优化技巧有哪些？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/33370207" target="_blank" rel="noopener">网页图片加载优化方案</a></li>
+<li><a href="http://jixianqianduan.com/frontend-weboptimize/2015/11/17/front-end-image-optmize.html" target="_blank" rel="noopener">web前端图片极限优化策略</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/load-picture-optimization/" data-id="cjguhg3so000clgwbb8mvj3bu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/06/NodeJS/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/loadOptimization/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

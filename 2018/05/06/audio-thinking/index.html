@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTML5音频总结现在在网页中最常见的嵌入音频的方法莫过于 &amp;lt; audio &amp;gt;标签,audio标签的各种属性和方法也很容易搜索出来:Audio对象。但是用&amp;lt; audio &amp;gt;标签需要注意这么多缺点：  兼容性   很显然，Opera Mini就没有实现audio标签，而且毕竟audio是HTML5的新特性，虽然大多数浏览器的最新版本都实现了，但是无法保证所有用户都使用了浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/audio-thinking/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="HTML5音频总结现在在网页中最常见的嵌入音频的方法莫过于 &amp;lt; audio &amp;gt;标签,audio标签的各种属性和方法也很容易搜索出来:Audio对象。但是用&amp;lt; audio &amp;gt;标签需要注意这么多缺点：  兼容性   很显然，Opera Mini就没有实现audio标签，而且毕竟audio是HTML5的新特性，虽然大多数浏览器的最新版本都实现了，但是无法保证所有用户都使用了浏览器">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw690/006P0MECgy1fm3r09es50j31880bw3yy.jpg">
+<meta property="og:updated_time" content="2017-12-03T10:21:01.478Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="HTML5音频总结现在在网页中最常见的嵌入音频的方法莫过于 &amp;lt; audio &amp;gt;标签,audio标签的各种属性和方法也很容易搜索出来:Audio对象。但是用&amp;lt; audio &amp;gt;标签需要注意这么多缺点：  兼容性   很显然，Opera Mini就没有实现audio标签，而且毕竟audio是HTML5的新特性，虽然大多数浏览器的最新版本都实现了，但是无法保证所有用户都使用了浏览器">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw690/006P0MECgy1fm3r09es50j31880bw3yy.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-audio-thinking" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/audio-thinking/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.393Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HTML5音频总结"><a href="#HTML5音频总结" class="headerlink" title="HTML5音频总结"></a>HTML5音频总结</h1><p>现在在网页中最常见的嵌入音频的方法莫过于 &lt; audio &gt;标签,audio标签的各种属性和方法也很容易搜索出来:<a href="http://www.w3school.com.cn/jsref/dom_obj_audio.asp" target="_blank" rel="noopener">Audio对象</a>。但是用&lt; audio &gt;标签需要注意这么多缺点：</p>
+<ol>
+<li><strong>兼容性</strong></li>
+</ol>
+<p><img src="https://wx4.sinaimg.cn/mw690/006P0MECgy1fm3r09es50j31880bw3yy.jpg" alt="兼容性"></p>
+<p>很显然，Opera Mini就没有实现audio标签，而且毕竟audio是HTML5的新特性，虽然大多数浏览器的最新版本都实现了，但是无法保证所有用户都使用了浏览器最新版本。</p>
+<ol start="2">
+<li><strong>格式支持</strong></li>
+</ol>
+<p>在不同浏览器下，对各种不同格式的音频文件支持程度不一样。因此，一般的解决方法是为一个audio 添加多个 source 元素。</p>
+<p>示例如下：</p>
+<pre><code> &lt;audio&gt; 
+    &lt;source src=&quot;music.mp3&quot;&gt;
+    &lt;source src=&quot;music.ogg&quot;&gt;
+    &lt;sourec src=&quot;music.wav&quot;&gt;
+&lt;/audio&gt;
+</code></pre><ol start="3">
+<li><strong>在移动版 Safari浏览器中audio的限制更明显</strong>。</li>
+</ol>
+<p>比如只能实现单音频流。也就是说在这种浏览器中一次只能播放一个音乐，前面的audio会被后面覆盖，还有需要通过事件来触发音频播放。初始化音频延时等等问题。</p>
+<p>详情请戳<a href="https://www.ibm.com/developerworks/cn/web/wa-ioshtml5/index.html" target="_blank" rel="noopener">《克服IOS HTML5音频的局限》</a></p>
+<ol start="4">
+<li><strong>无法实现比较复杂的音效</strong></li>
+</ol>
+<p>缺陷包括：</p>
+<blockquote>
+<ul>
+<li>无法为声音信号使用滤波器<ul>
+<li>无法访问原始的PCM数据</li>
+</ul>
+</li>
+<li>没有来源和听众位置，方向概念</li>
+<li>没有颗粒度的计时</li>
+</ul>
+</blockquote>
+<p>详情请戳<a href="http://www.uml.org.cn/html/201206271.asp" target="_blank" rel="noopener">《用HTML5 Audio API开发游戏音乐》</a></p>
+<h3 id="既然audio标签拥有这么多缺陷，总需要找出一些方法来解决。为此，必须从WEB-API角度来探索，html中音频实现的原理。"><a href="#既然audio标签拥有这么多缺陷，总需要找出一些方法来解决。为此，必须从WEB-API角度来探索，html中音频实现的原理。" class="headerlink" title="既然audio标签拥有这么多缺陷，总需要找出一些方法来解决。为此，必须从WEB API角度来探索，html中音频实现的原理。"></a>既然audio标签拥有这么多缺陷，总需要找出一些方法来解决。为此，必须从WEB API角度来探索，html中音频实现的原理。</h3><h2 id="Web-Audio"><a href="#Web-Audio" class="headerlink" title="Web Audio"></a>Web Audio</h2><blockquote>
+<p>Web Audio还是一个比较新的JavaScript API，它和HTML5中的&lt; audio &gt;是不同的，简单来说，&lt; audio &gt;标签是为了能在网页中嵌入音频文件，和播放器一样，具有操作界面，而Web Audio则是给了开发者对音频数据进行处理、分析的能力，例如混音、过滤等，类似于对音频数据进行PS。</p>
+</blockquote>
+<p>对于web audio的应用，比较基本操作的就是:</p>
+<ol>
+<li>初始化audio content</li>
+<li>创建audio node</li>
+<li>播放声音</li>
+<li>时间控制</li>
+</ol>
+<p>基本利用示例详情请戳<a href="http://www.cnblogs.com/ericHTML5/p/4039530.html" target="_blank" rel="noopener">《web audio 初步介绍和实践》</a></p>
+<p>对web audio api的各种属性和方法的详细了解请戳<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API" target="_blank" rel="noopener">《网页音频接口的基本概念》</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/audio-thinking/" data-id="cjguhg3s90002lgwb7ick5pb5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/06/Cross-page transmission/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/2017FinalSummary/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&amp;apos;/allMovies&amp;apos;).then(function (ans) &amp;#123;    let mynum = parseInt((">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/pagination/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&amp;apos;/allMovies&amp;apos;).then(function (ans) &amp;#123;    let mynum = parseInt((">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2017-08-08T13:21:16.186Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&amp;apos;/allMovies&amp;apos;).then(function (ans) &amp;#123;    let mynum = parseInt((">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-pagination" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/pagination/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.292Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习如何分页"><a href="#学习如何分页" class="headerlink" title="学习如何分页"></a>学习如何分页</h1><p><em>在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。</em></p>
+<h2 id="‘无组’分页"><a href="#‘无组’分页" class="headerlink" title="‘无组’分页"></a>‘无组’分页</h2><h3 id="采用了jqPaginator插件，源码如下："><a href="#采用了jqPaginator插件，源码如下：" class="headerlink" title="采用了jqPaginator插件，源码如下："></a>采用了jqPaginator插件，源码如下：</h3><p><strong>js部分</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">axios.post(&apos;/allMovies&apos;).then(function (ans) &#123;</span><br><span class="line">    let mynum = parseInt((ans.data.length/16))+1;</span><br><span class="line">    let str = &apos;&apos;;</span><br><span class="line">    $(&apos;.ttx-my-number&apos;).jqPaginator(&#123;</span><br><span class="line">        totalPages: mynum,</span><br><span class="line">        visiblePages: 20,</span><br><span class="line">        currentPage: 1,</span><br><span class="line">        onPageChange: function (num, type) &#123;</span><br><span class="line">            let str = &apos;&apos;;</span><br><span class="line">            let mycurrentnum = (num-1)*16;</span><br><span class="line">            let myendnum = num*16 - 1;</span><br><span class="line">            if(myendnum &gt; ans.data.length - 1)&#123;</span><br><span class="line">                myendnum = ans.data.length - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            for (let i = mycurrentnum; i &lt;=myendnum; i++) &#123;</span><br><span class="line">                str += &apos;&lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 col-xs-12 ttx-movie&quot;&gt;&apos;;</span><br><span class="line">                str += `&lt;a onclick=&quot;myonclickhrf($&#123;ans.data[i].id&#125;)&quot;&gt;&lt;img class=&quot;center-block ttx-movie-photo&quot; src=&quot;$&#123;ans.data[i].movieimg&#125;&quot; width=&quot;65%&quot; height=&quot;100%&quot; alt=&quot;&quot;&gt;&lt;/a&gt;`;</span><br><span class="line">                str += `&lt;p class=&quot;ttx-movie-text&quot;&gt;&lt;a onclick=&quot;myonclickhrf($&#123;ans.data[i].id&#125;)&quot; &gt;$&#123;ans.data[i].name&#125;&lt;/a&gt;&lt;strong&gt;$&#123;ans.data[i].score&#125;&lt;/strong&gt;&lt;/p&gt;`;</span><br><span class="line">                str += `&lt;/div&gt;`;</span><br><span class="line">            &#125;</span><br><span class="line">            $(&quot;.ttx-movie-container&quot;).empty().append(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p> <strong>html部分</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-lg-9 col-md-9 col-sm-9 col-xs-9 ttx-right&quot;&gt;</span><br><span class="line">    &lt;ol class=&quot;breadcrumb ttx-bread&quot;&gt;</span><br><span class="line">         &lt;li class=&quot;active&quot;&gt;全部影片&lt;/li&gt;</span><br><span class="line">    &lt;/ol&gt;</span><br><span class="line">    &lt;div class=&quot;row ttx-movie-container&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;nav aria-label=&quot;...&quot;&gt;</span><br><span class="line">        &lt;ul class=&quot;pagination ttx-my-number&quot;&gt;</span><br><span class="line">                          </span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">     &lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>解析</strong></p>
+<p>此次样式上利用了<a href="http://v3.bootcss.com/" title="boostrap" target="_blank" rel="noopener">boostrap框架</a>，js上利用的是<a href="http://jqpaginator.keenwon.com/" title="jqPaginator" target="_blank" rel="noopener">jqPaginator插件</a>。</p>
+<pre><code>axios.post(&apos;/allMovies&apos;).then(function (ans) {}
+</code></pre><p>axios前端向后端(‘/allMovies’)路由post数据，then()里的函数是数据接收后的回调函数，ans是接受的数据，类型是对象，ans的data属性的值是数组</p>
+<pre><code>let mynum = parseInt((ans.data.length/16))+1;
+</code></pre><p>求出ans的data属性值的长度</p>
+<pre><code>$(&apos;.ttx-my-number&apos;).jqPaginator({}）
+</code></pre><p>利用jquery方法，此为给<strong>class</strong>为<em>ttx-my-number</em>调用一个js函数</p>
+<pre><code>totalPages: mynum,
+visiblePages: 20,
+currentPage: 1,
+</code></pre><p>总页数为后台传来的数据mynum，分页的总页数为20,当前页码为1</p>
+<pre><code>onPageChange: function (num, type) {}
+</code></pre><p>回调函数，当换页时触发（包括初始化第一页的时候），会传入两个参数：</p>
+<p>1、“目标页”的页码，Number类型</p>
+<p>2、触发类型，可能的值：“init”（初始化），“change”（点击分页）</p>
+<pre><code>let mycurrentnum = (num-1)*16;
+</code></pre><p>*16代表每页有16个电影，<strong>mycurrentnum</strong>表示点击后目标页后所需要加载的第一个数据</p>
+<pre><code>myendnum = num*16 - 1;
+</code></pre><p><strong>myendnum</strong>代表点击目标页数所需要加载的最后一个数据（电影）</p>
+<pre><code>if(myendnum &gt; ans.data.length - 1){
+            myendnum = ans.data.length - 1;
+        }
+</code></pre><p>如果目标页所需要加载的最后一个数据大于后台提供的数据，则最后一个数据就是后台提供的最后一个数据。</p>
+<pre><code>for (let i = mycurrentnum; i &lt;=myendnum; i++) {}
+</code></pre><p>表示加载点击目标页第一个数据到最后一个数据</p>
+<pre><code>str += &apos;&lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 col-xs-12 ttx-movie&quot;&gt;&apos;;
+</code></pre><p>第一层div：加样式</p>
+<pre><code>&lt;a onclick=&quot;myonclickhrf(${ans.data[i].id})&quot;&gt;
+     &lt;img class=&quot;center-block ttx-movie-photo&quot; src=&quot;$  {ans.data[i].movieimg}&quot; width=&quot;65%&quot; height=&quot;100%&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;
+</code></pre><p>第二层div： 添加图片，图片也是一个链接</p>
+<pre><code>&lt;p class=&quot;ttx-movie-text&quot;&gt;
+     &lt;a onclick=&quot;myonclickhrf(${ans.data[i].id})&quot; &gt;${ans.data[i].name}&lt;/a&gt;
+         &lt;strong&gt;${ans.data[i].score}&lt;/strong&gt;
+&lt;/p&gt;
+</code></pre><p>第三层div: 添加文字描述，文字也是链接</p>
+<pre><code>$(&quot;.ttx-movie-container&quot;).empty().append(str);
+</code></pre><p>jquery方法：取<strong>class</strong>为<em>ttx-movie-container</em>，<a href="http://www.w3school.com.cn/jquery/jquery_dom_remove.asp" target="_blank" rel="noopener">empty()</a>将原本属于<em>ttx-movie-container</em>的子节点以及其文本内容清除（不包括本身），<a href="http://www.w3school.com.cn/jquery/jquery_dom_add.asp" target="_blank" rel="noopener">append()</a>为<em>ttx-movie-container</em>添加刚刚动态创建的新节点和内容。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>先向后台取回所有数据，点击目标页后，先清空页面上的已有数据后加载目标页所需要的第一个到最后一个数据，分页完毕。做到了页面部分刷新，且不用多次请求数据。</p>
+<hr>
+<h3 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h3><p>可以延伸一些小功能，如：</p>
+<p><strong>按输入页数查询：</strong></p>
+<p>可以在</p>
+<pre><code>&lt;nav aria-label=&quot;...&quot;&gt; &lt;/nav&gt;
+</code></pre><p>后添加一个input的搜索框，前端取得数据后将输入结果赋给<strong>mycurrentnum</strong></p>
+<p><strong>让用户控制页数</strong></p>
+<p>也可添加一个input输入框，将*16的16作为传入参数<strong>cout（自定义）</strong>，前端取得数据后将输入结果赋给<strong>cout</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/pagination/" data-id="cjguhg3st000flgwbflzxqwrz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/06/Private_variables/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/page/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[object Object]</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

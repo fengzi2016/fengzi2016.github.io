@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="frontend blog 前端技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="frontend blog 前端技术博客">
+<meta property="og:locale" content="Chinese">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="frontend blog 前端技术博客">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Private_variables" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/Private_variables/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.301Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JS中的私有变量"><a href="#JS中的私有变量" class="headerlink" title="JS中的私有变量"></a>JS中的私有变量</h1><p>当项目需要保护一些在运行时不应该被改变的数据(包括变量，函数，参数等等)时，我们就应该创建私有变量。但是JavaScript并不像C语言一样有修饰符来控制访问，并且所有属性都要在函数中定义。下面有几种在JavaScript中创建私有变量的方法。</p>
+<h2 id="一-无法真正阻止变量被访问或修改"><a href="#一-无法真正阻止变量被访问或修改" class="headerlink" title="一. 无法真正阻止变量被访问或修改"></a>一. 无法真正阻止变量被访问或修改</h2><h3 id="1-命名约定"><a href="#1-命名约定" class="headerlink" title="1. 命名约定"></a>1. 命名约定</h3><p>使用特定的命名约定表示属性应该视为私有。通常以下划线作为属性名称的前缀（例如 _count ）。这并没有真正阻止变量被访问或修改，而是依赖于开发者之间的相互理解，认为这个变量应该被视为限制访问。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原文示例</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">        <span class="keyword">constructor</span>(width, height) &#123;</span><br><span class="line">            <span class="keyword">this</span>._width = width;<span class="comment">//私有变量</span></span><br><span class="line">            <span class="keyword">this</span>._height = height;<span class="comment">//私有变量</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-WeakMap"><a href="#2-WeakMap" class="headerlink" title="2. WeakMap"></a>2. WeakMap</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap" target="_blank" rel="noopener">WeakMap 对象</a>是一组键/值对的集合，其中的键是弱引用的。其键必须是对象，而值可以是任意的。<br>使用 WeakMap 来存储所有私有值，将私有值与用户可操作的对象分开。这种技术的好处是在遍历属性时或者在执行 JSON.stringify 时不会展示出实例的私有属性，但它依赖于一个放在类外面的可以访问和操作的 WeakMap 变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原文示例</span></span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"><span class="comment">// 创建一个在每个实例中存储私有变量的对象</span></span><br><span class="line"><span class="keyword">const</span> internal = <span class="function"><span class="params">obj</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!map.has(obj)) &#123;</span><br><span class="line">    map.set(obj, &#123;&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> map.get(obj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(width, height) &#123;</span><br><span class="line">    internal(<span class="keyword">this</span>).width = width;</span><br><span class="line">    internal(<span class="keyword">this</span>).height = height;</span><br><span class="line">  &#125;</span><br><span class="line">  get area() &#123;</span><br><span class="line">    <span class="keyword">return</span> internal(<span class="keyword">this</span>).width * internal(<span class="keyword">this</span>).height;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> square = <span class="keyword">new</span> Shape(<span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(square.area); <span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(map.get(square));<span class="comment">// &#123; height: 100, width: 100 &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-Symbol"><a href="#3-Symbol" class="headerlink" title="3.Symbol"></a>3.Symbol</h3><p>Symbol()函数会返回symbol类型的值，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol" target="_blank" rel="noopener">symbol</a> 是一种基本数据类型 （primitive data type）。</p>
+<p>用Symbol创建私有变量的方法和作用和weakMap很相似，但写法有差异，需要为每个私有属性创建一个 Symbol。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原文示例</span></span><br><span class="line">    <span class="keyword">var</span> SymbolWidth =  <span class="built_in">Symbol</span>(<span class="string">'width'</span>);</span><br><span class="line">    <span class="keyword">var</span> SymbolHeight = <span class="built_in">Symbol</span>(<span class="string">'height'</span>);</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">        <span class="keyword">constructor</span>(width,height)&#123;</span><br><span class="line">            <span class="keyword">this</span>[SymbolWidth] = width;</span><br><span class="line">            <span class="keyword">this</span>[SymbolHeight] = height;</span><br><span class="line">        &#125;</span><br><span class="line">    get area() &#123;</span><br><span class="line">    returnthis[widthSymbol] * <span class="keyword">this</span>[heightSymbol];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> square = <span class="keyword">new</span> Shape(<span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(square.area); <span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(square.widthSymbol);<span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(square[widthSymbol]); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二-阻止变量被访问或修改"><a href="#二-阻止变量被访问或修改" class="headerlink" title="二.阻止变量被访问或修改"></a>二.阻止变量被访问或修改</h2><h3 id="4-闭包"><a href="#4-闭包" class="headerlink" title="4. 闭包"></a>4. 闭包</h3><p>闭包是将数据封装在调用时创建的函数作用域内，但是只从内部返回函数的结果，从而使这一作用域无法从外部访问。可以将闭包与 WeakMap 或 Symbol 一起使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//理解用：</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bibao</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">this</span>$ = &#123;&#125;;<span class="comment">//所有私有变量组成的对象</span></span><br><span class="line">       <span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">        <span class="keyword">constructor</span>(width,height)&#123;</span><br><span class="line">           <span class="keyword">this</span>$.width = width;</span><br><span class="line">           <span class="keyword">this</span>$.height = height;</span><br><span class="line">       &#125;</span><br><span class="line">       get area()&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">this</span>$.width*<span class="keyword">this</span>$.height;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;   </span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//原文示例</span></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Shape</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 私有变量集</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">this</span>$ = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(width, height) &#123;</span><br><span class="line">      <span class="keyword">this</span>$.width = width;</span><br><span class="line">      <span class="keyword">this</span>$.height = height;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">'area'</span>, &#123;</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">this</span>$.width * <span class="keyword">this</span>$.height;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.setPrototypeOf(<span class="keyword">new</span> Shape(...arguments), <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> square = <span class="keyword">new</span> Shape(<span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(square.area);         <span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(square.width);            <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(square <span class="keyword">instanceof</span> Shape); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-Proxy"><a href="#5-Proxy" class="headerlink" title="5. Proxy"></a>5. Proxy</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank" rel="noopener">Proxy</a> 对象用于定义基本操作的自定义行为（如属性查找，赋值，枚举，函数调用等）。它将允许你有效地将对象包装在名为 Proxy 的对象中，并拦截与该对象的所有交互。创建 Proxy 时，你将提供两个参数，第一个是您打算包裹的实例，第二个是您定义的希望拦截不同方法的 “处理器” 对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原文示例:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(width, height) &#123;</span><br><span class="line">    <span class="keyword">this</span>._width = width;</span><br><span class="line">    <span class="keyword">this</span>._height = height;</span><br><span class="line">  &#125;</span><br><span class="line">  get area() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._width * <span class="keyword">this</span>._height;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> handler = &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params">target, key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key[<span class="number">0</span>] === <span class="string">'_'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> newError(<span class="string">'Attempt to access private property'</span>);</span><br><span class="line">    &#125; elseif (key === <span class="string">'toJSON'</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> target) &#123;</span><br><span class="line">        <span class="keyword">if</span> (key[<span class="number">0</span>] !== <span class="string">'_'</span>) &#123;</span><br><span class="line">          obj[key] = target[key];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span><span class="function"><span class="params">()</span> =&gt;</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  set: <span class="function"><span class="keyword">function</span>(<span class="params">target, key, value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key[<span class="number">0</span>] === <span class="string">'_'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> newError(<span class="string">'Attempt to access private property'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = value;</span><br><span class="line">  &#125;,</span><br><span class="line">  getOwnPropertyDescriptor(target, key) &#123;</span><br><span class="line">    <span class="keyword">const</span> desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(target, key);</span><br><span class="line">    <span class="keyword">if</span> (key[<span class="number">0</span>] === <span class="string">'_'</span>) &#123;</span><br><span class="line">      desc.enumerable = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> square = <span class="keyword">new</span> <span class="built_in">Proxy</span>(<span class="keyword">new</span> Shape(<span class="number">10</span>, <span class="number">10</span>), handler);</span><br><span class="line"><span class="built_in">console</span>.log(square.area);<span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(square <span class="keyword">instanceof</span> Shape); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(square));  <span class="comment">// "&#123;&#125;"</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> square) &#123;           <span class="comment">// No output</span></span><br><span class="line"><span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line">square._width = <span class="number">200</span>; <span class="comment">// 错误：试图访问私有属性</span></span><br></pre></td></tr></table></figure>
+<p>详情请戳<a href="http://mp.weixin.qq.com/s/8yyI1bB8eYu3-fCoDJM4Og" target="_blank" rel="noopener">JavaScript 中的私有变量</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/Private_variables/" data-id="cjguhg3s90003lgwbwl041oxd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pagination" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/pagination/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.292Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习如何分页"><a href="#学习如何分页" class="headerlink" title="学习如何分页"></a>学习如何分页</h1><p><em>在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。</em></p>
+<h2 id="‘无组’分页"><a href="#‘无组’分页" class="headerlink" title="‘无组’分页"></a>‘无组’分页</h2><h3 id="采用了jqPaginator插件，源码如下："><a href="#采用了jqPaginator插件，源码如下：" class="headerlink" title="采用了jqPaginator插件，源码如下："></a>采用了jqPaginator插件，源码如下：</h3><p><strong>js部分</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">axios.post(&apos;/allMovies&apos;).then(function (ans) &#123;</span><br><span class="line">    let mynum = parseInt((ans.data.length/16))+1;</span><br><span class="line">    let str = &apos;&apos;;</span><br><span class="line">    $(&apos;.ttx-my-number&apos;).jqPaginator(&#123;</span><br><span class="line">        totalPages: mynum,</span><br><span class="line">        visiblePages: 20,</span><br><span class="line">        currentPage: 1,</span><br><span class="line">        onPageChange: function (num, type) &#123;</span><br><span class="line">            let str = &apos;&apos;;</span><br><span class="line">            let mycurrentnum = (num-1)*16;</span><br><span class="line">            let myendnum = num*16 - 1;</span><br><span class="line">            if(myendnum &gt; ans.data.length - 1)&#123;</span><br><span class="line">                myendnum = ans.data.length - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            for (let i = mycurrentnum; i &lt;=myendnum; i++) &#123;</span><br><span class="line">                str += &apos;&lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 col-xs-12 ttx-movie&quot;&gt;&apos;;</span><br><span class="line">                str += `&lt;a onclick=&quot;myonclickhrf($&#123;ans.data[i].id&#125;)&quot;&gt;&lt;img class=&quot;center-block ttx-movie-photo&quot; src=&quot;$&#123;ans.data[i].movieimg&#125;&quot; width=&quot;65%&quot; height=&quot;100%&quot; alt=&quot;&quot;&gt;&lt;/a&gt;`;</span><br><span class="line">                str += `&lt;p class=&quot;ttx-movie-text&quot;&gt;&lt;a onclick=&quot;myonclickhrf($&#123;ans.data[i].id&#125;)&quot; &gt;$&#123;ans.data[i].name&#125;&lt;/a&gt;&lt;strong&gt;$&#123;ans.data[i].score&#125;&lt;/strong&gt;&lt;/p&gt;`;</span><br><span class="line">                str += `&lt;/div&gt;`;</span><br><span class="line">            &#125;</span><br><span class="line">            $(&quot;.ttx-movie-container&quot;).empty().append(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p> <strong>html部分</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-lg-9 col-md-9 col-sm-9 col-xs-9 ttx-right&quot;&gt;</span><br><span class="line">    &lt;ol class=&quot;breadcrumb ttx-bread&quot;&gt;</span><br><span class="line">         &lt;li class=&quot;active&quot;&gt;全部影片&lt;/li&gt;</span><br><span class="line">    &lt;/ol&gt;</span><br><span class="line">    &lt;div class=&quot;row ttx-movie-container&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;nav aria-label=&quot;...&quot;&gt;</span><br><span class="line">        &lt;ul class=&quot;pagination ttx-my-number&quot;&gt;</span><br><span class="line">                          </span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">     &lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>解析</strong></p>
+<p>此次样式上利用了<a href="http://v3.bootcss.com/" title="boostrap" target="_blank" rel="noopener">boostrap框架</a>，js上利用的是<a href="http://jqpaginator.keenwon.com/" title="jqPaginator" target="_blank" rel="noopener">jqPaginator插件</a>。</p>
+<pre><code>axios.post(&apos;/allMovies&apos;).then(function (ans) {}
+</code></pre><p>axios前端向后端(‘/allMovies’)路由post数据，then()里的函数是数据接收后的回调函数，ans是接受的数据，类型是对象，ans的data属性的值是数组</p>
+<pre><code>let mynum = parseInt((ans.data.length/16))+1;
+</code></pre><p>求出ans的data属性值的长度</p>
+<pre><code>$(&apos;.ttx-my-number&apos;).jqPaginator({}）
+</code></pre><p>利用jquery方法，此为给<strong>class</strong>为<em>ttx-my-number</em>调用一个js函数</p>
+<pre><code>totalPages: mynum,
+visiblePages: 20,
+currentPage: 1,
+</code></pre><p>总页数为后台传来的数据mynum，分页的总页数为20,当前页码为1</p>
+<pre><code>onPageChange: function (num, type) {}
+</code></pre><p>回调函数，当换页时触发（包括初始化第一页的时候），会传入两个参数：</p>
+<p>1、“目标页”的页码，Number类型</p>
+<p>2、触发类型，可能的值：“init”（初始化），“change”（点击分页）</p>
+<pre><code>let mycurrentnum = (num-1)*16;
+</code></pre><p>*16代表每页有16个电影，<strong>mycurrentnum</strong>表示点击后目标页后所需要加载的第一个数据</p>
+<pre><code>myendnum = num*16 - 1;
+</code></pre><p><strong>myendnum</strong>代表点击目标页数所需要加载的最后一个数据（电影）</p>
+<pre><code>if(myendnum &gt; ans.data.length - 1){
+            myendnum = ans.data.length - 1;
+        }
+</code></pre><p>如果目标页所需要加载的最后一个数据大于后台提供的数据，则最后一个数据就是后台提供的最后一个数据。</p>
+<pre><code>for (let i = mycurrentnum; i &lt;=myendnum; i++) {}
+</code></pre><p>表示加载点击目标页第一个数据到最后一个数据</p>
+<pre><code>str += &apos;&lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 col-xs-12 ttx-movie&quot;&gt;&apos;;
+</code></pre><p>第一层div：加样式</p>
+<pre><code>&lt;a onclick=&quot;myonclickhrf(${ans.data[i].id})&quot;&gt;
+     &lt;img class=&quot;center-block ttx-movie-photo&quot; src=&quot;$  {ans.data[i].movieimg}&quot; width=&quot;65%&quot; height=&quot;100%&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;
+</code></pre><p>第二层div： 添加图片，图片也是一个链接</p>
+<pre><code>&lt;p class=&quot;ttx-movie-text&quot;&gt;
+     &lt;a onclick=&quot;myonclickhrf(${ans.data[i].id})&quot; &gt;${ans.data[i].name}&lt;/a&gt;
+         &lt;strong&gt;${ans.data[i].score}&lt;/strong&gt;
+&lt;/p&gt;
+</code></pre><p>第三层div: 添加文字描述，文字也是链接</p>
+<pre><code>$(&quot;.ttx-movie-container&quot;).empty().append(str);
+</code></pre><p>jquery方法：取<strong>class</strong>为<em>ttx-movie-container</em>，<a href="http://www.w3school.com.cn/jquery/jquery_dom_remove.asp" target="_blank" rel="noopener">empty()</a>将原本属于<em>ttx-movie-container</em>的子节点以及其文本内容清除（不包括本身），<a href="http://www.w3school.com.cn/jquery/jquery_dom_add.asp" target="_blank" rel="noopener">append()</a>为<em>ttx-movie-container</em>添加刚刚动态创建的新节点和内容。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>先向后台取回所有数据，点击目标页后，先清空页面上的已有数据后加载目标页所需要的第一个到最后一个数据，分页完毕。做到了页面部分刷新，且不用多次请求数据。</p>
+<hr>
+<h3 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h3><p>可以延伸一些小功能，如：</p>
+<p><strong>按输入页数查询：</strong></p>
+<p>可以在</p>
+<pre><code>&lt;nav aria-label=&quot;...&quot;&gt; &lt;/nav&gt;
+</code></pre><p>后添加一个input的搜索框，前端取得数据后将输入结果赋给<strong>mycurrentnum</strong></p>
+<p><strong>让用户控制页数</strong></p>
+<p>也可添加一个input输入框，将*16的16作为传入参数<strong>cout（自定义）</strong>，前端取得数据后将输入结果赋给<strong>cout</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/pagination/" data-id="cjguhg3st000flgwbflzxqwrz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-page" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/page/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.288Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/06/page/">[object Object]</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/page/" data-id="cjguhg3so000dlgwbxp2uoufp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-NodeJS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/NodeJS/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.285Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h1><h2 id="框架推荐"><a href="#框架推荐" class="headerlink" title="框架推荐"></a>框架推荐</h2><ol>
+<li><p><a href="https://facebook.github.io/react/" target="_blank" rel="noopener">React</a></p>
+</li>
+<li><p><a href="https://www.meteor.com/" target="_blank" rel="noopener">Meteor</a></p>
+</li>
+</ol>
+<h2 id="工具推荐"><a href="#工具推荐" class="headerlink" title="工具推荐"></a>工具推荐</h2><ol>
+<li><p><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a></p>
+</li>
+<li><p><a href="http://www.gulpjs.com.cn/" target="_blank" rel="noopener">Gulpjs</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/NodeJS/" data-id="cjguhg3sd0004lgwbjmjno6xl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-load-picture-optimization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/load-picture-optimization/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.281Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h1><h2 id="图片加载存在的问题"><a href="#图片加载存在的问题" class="headerlink" title="图片加载存在的问题"></a>图片加载存在的问题</h2><ol>
+<li>启动页面加载过多图片</li>
+<li>部分图片体积过大</li>
+</ol>
+<h2 id="后果"><a href="#后果" class="headerlink" title="后果"></a>后果</h2><p>会导致页面加载速度慢，页面出现空白区域，浪费流量等等问题。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li><strong>用css,svg,canvas,iconfont代替图片</strong>。</li>
+<li><strong>使用矢量图替代位图</strong>。<strong>矢量图</strong>使用直线和曲线来描述图形，这些图形的元素是一些点、线、矩形、多边形、圆和弧线等等，它们都是通过数学公式计算获得的。例如一幅花的矢量图形实际上是由线段形成外框轮廓。<strong>位图</strong>亦称为点阵图像或绘制图像，是由称作像素（图片元素）的单个点组成的。这些点可以进行不同的排列和染色以构成图样。当放大位图时，可以看见赖以构成整个图像的无数单个方块。</li>
+<li>使用适当的<strong>图片格式进行单位像素优化</strong>。<a href="http://jixianqianduan.com/frontend-weboptimize/2015/11/17/front-end-image-optmize.html" target="_blank" rel="noopener">常用web图片</a>格式如下：</li>
+</ol>
+<p><img src="https://wx3.sinaimg.cn/mw690/006P0MECgy1foa8rl3qgyj30pt0n1tab.jpg" alt="图片格式"></p>
+<ol start="4">
+<li>按照HTTP协议设置合理的<strong>缓存</strong>。<a href="http://www.alloyteam.com/2016/03/discussion-on-web-caching/" target="_blank" rel="noopener">缓存</a></li>
+<li><p> ①使用CSS或者JS进行<strong>预加载</strong> 。如：</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-img:url(http://example.com/1.jpg)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">images[i] = <span class="keyword">new</span> Image()</span><br><span class="line"></span><br><span class="line">images[i].src = <span class="string">`http://example.com/<span class="subst">$&#123;i&#125;</span>.jpg`</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> ②显性预加载：指处于预加载过程时页面有明确的加载提示，比如进度条或者是Loading图标。</p>
+<p> ③隐形预加载：通过推进触屏页面进度的趣味互动的方式。</p>
+</li>
+<li><p>利用<strong>雪碧图</strong>，减少请求次数。</p>
+</li>
+<li>对大部分图片，特别是轮播广告中的图片进行<strong>按设备尺寸裁剪</strong>，减少图片体积，减少网络开销，加快下载速率。不要用大的图再在HTML缩小，要多大图用多大图。</li>
+<li><p><strong>懒加载</strong>。<a href="https://zhuanlan.zhihu.com/p/33370207" target="_blank" rel="noopener">优先加载</a>所见屏幕需要的图片。原理：<br>①先将图片的实际src，记录在data-set属性中。<br>②监听屏幕滚动，计算图片的Y坐标，并计算可视区域的高度height，当Y小于等于(height+scrollTop)时，图片的src的值用data-src的来替换，从而来实现图片的懒加载。</p>
+</li>
+<li><p><strong>使用base64编码代替图片</strong>，但是只适用于图片大小小于2KB且图片引用次数不多的情景。</p>
+</li>
+<li><p><strong>图片压缩</strong>。</p>
+<p>部分平台：</p>
+<p>Kraken (Web) 主页： <a href="https://kraken.io/" target="_blank" rel="noopener">https://kraken.io/</a></p>
+<p>智图 主页： <a href="http://zhitu.tencent.com/" target="_blank" rel="noopener">http://zhitu.tencent.com/</a> 支持原图png转为jpeg和webp(目前不支持bpg)，并提供各种压缩比压缩，目前在tx内部广泛使用。</p>
+</li>
+<li><strong>响应式图片</strong>。通过picture元素，picturefill或平台判断来为不同终端平台输出不同的图片 。</li>
+</ol>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://aotu.io/notes/2016/03/09/img-loading-optimization-in-mobile/index.html" target="_blank" rel="noopener">让图片加载这件事儿变得更美好</a></li>
+<li><a href="https://www.zhihu.com/question/21815101" target="_blank" rel="noopener">前端开发中，对图片的优化技巧有哪些？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/33370207" target="_blank" rel="noopener">网页图片加载优化方案</a></li>
+<li><a href="http://jixianqianduan.com/frontend-weboptimize/2015/11/17/front-end-image-optmize.html" target="_blank" rel="noopener">web前端图片极限优化策略</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/load-picture-optimization/" data-id="cjguhg3so000clgwbb8mvj3bu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-loadOptimization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/loadOptimization/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.277Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="web加载优化"><a href="#web加载优化" class="headerlink" title="web加载优化"></a>web加载优化</h1><p>参考链接</p>
+<ol>
+<li><a href="http://web.jobbole.com/87686/" target="_blank" rel="noopener">如何运用最新的技术提升网页速度和性能</a></li>
+<li><a href="http://www.alloyteam.com/2017/01/react-from-scratch-server-render/" target="_blank" rel="noopener">从零开始React服务器渲染</a></li>
+<li><a href="http://www.css88.com/react/docs/react-dom-server.html" target="_blank" rel="noopener">ReactDOMServer</a></li>
+<li><a href="https://github.com/xunleif2e/vue-lazy-component/blob/master/src/VueLazyComponent.vue" target="_blank" rel="noopener">vue-lazy-component</a></li>
+</ol>
+<h2 id="方法："><a href="#方法：" class="headerlink" title="方法："></a>方法：</h2><ol>
+<li><strong>使用textarea标签包裹HTML/JS/CSS代码</strong>, 当作textarea的value值, 在页面渲染的时候实际并没有渲染到DOM树上, 而是与图片懒加载类似, 当textarea标签出现或即将出现在用户视野时, 将textarea中的HTML代码取出, 用innerHTML动态插入到DOM树中, 如有必要使用正则取出js/css代码动态执行.<br>例子：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loading"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">"datalazyload"</span> <span class="attr">style</span>=<span class="string">"visibility: hidden;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"><span class="selector-class">.lazy</span> &#123;<span class="attribute">width</span>: <span class="number">300px</span>; <span class="attribute">height</span>: <span class="number">168px</span>; <span class="attribute">background</span>: <span class="number">#333</span>;&#125;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"><span class="built_in">console</span>.log(<span class="string">'eval success'</span>);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'lazy'</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loading"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">"datalazyload"</span> <span class="attr">style</span>=<span class="string">"visibility: hidden;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"><span class="selector-class">.lazy</span> &#123;<span class="attribute">width</span>: <span class="number">300px</span>; <span class="attribute">height</span>: <span class="number">168px</span>; <span class="attribute">background</span>: <span class="number">#444</span>;&#125;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"><span class="built_in">console</span>.log(<span class="string">'eval success'</span>);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'lazy'</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>资源压缩</strong></li>
+</ol>
+<p>步骤:</p>
+<ul>
+<li><p>npm install compression</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> compression = <span class="built_in">require</span>(<span class="string">'compression'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">app.use(compression());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li><p><strong>图片压缩</strong>，减小图片大小， 推荐：“色彩笔压缩工具”</p>
+</li>
+<li><p><strong>懒加载</strong></p>
+</li>
+</ol>
+<ul>
+<li><p>图片懒加载<br> 实现原理：判断是否出现在屏幕可视区域，若出现则给img的src赋值并配以动画</p>
+<ul>
+<li><p>原生js懒加载</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="comment">/*包裹结构 </span></span><br><span class="line"><span class="comment">&lt;image-containner&gt;</span></span><br><span class="line"><span class="comment">    &lt;img&gt;</span></span><br><span class="line"><span class="comment">    &lt;img&gt;</span></span><br><span class="line"><span class="comment">     ...</span></span><br><span class="line"><span class="comment"> &lt;/image-containner&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadImg</span>(<span class="params">domArr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;arr.length;i++)&#123;</span><br><span class="line">        <span class="comment">/*getBoundingClientRect() Returns a TextRectangle object. Each rectangle has four integer properties (top, left, right, and bottom) that represent a coordinate of the rectangle, in pixels.</span></span><br><span class="line"><span class="comment">        </span></span><br><span class="line"><span class="comment">        获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置</span></span><br><span class="line"><span class="comment">        document.documentElement.clientHeight 在w3c标准下表示页面可见区域的高度</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">if</span>(domArr[i].getBoundingClientRect().top&lt;<span class="built_in">document</span>.documentElement.clientHeight&amp;&amp;!domArr[i].isLoad)&#123;</span><br><span class="line">            domArr[i].isLoad = <span class="literal">true</span>;</span><br><span class="line">            (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">                setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">                    if(domArr[i].dataset</span>) </span>&#123; </span><br><span class="line">                        <span class="comment">/*兼容不支持data的浏览器*/</span></span><br><span class="line">                        addSrc(domArr[i], domArr[i].dataset.imgurl);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        addSrc(domArr[i], domArr[i].getAttribute(<span class="string">"data-imgurl"</span>));</span><br><span class="line">                        &#125;</span><br><span class="line">                        domArr[i].style.cssText = <span class="string">"transition: 1s; opacity: 1;"</span> </span><br><span class="line">                        <span class="comment">/*动态效果*/</span></span><br><span class="line">                    &#125;)(i);<span class="comment">/*立即执行*/</span></span><br><span class="line">                ))</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addSrc</span>(<span class="params">obj, url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> oImg = <span class="keyword">new</span> Image();</span><br><span class="line">    oImg.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     obj.src = oImg.src; <span class="comment">/*下载完成后将该图片赋给目标obj目标对象*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    oImg.src = url; <span class="comment">/*oImg对象先下载该图像*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> Images =  <span class="built_in">document</span>.getElementById(<span class="string">"img-containner"</span>).getElementsByTagName(<span class="string">"img"</span>);<span class="comment">/*生成一个数组，每个元素都是img-containner里的img DOM*/</span></span><br><span class="line">loadImg(aImages);</span><br><span class="line"><span class="built_in">window</span>.onscroll = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="comment">/*滚动条滚动触发*/</span></span><br><span class="line">    loadImg(aImages);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vue.js图片懒加载</p>
+<p>原理：监听位置，控制是否加载。下面我们来研究vue-lazy-component 插件的源码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">vue-lazy-component</span></span></span><br><span class="line"><span class="tag">        @<span class="attr">init</span>=<span class="string">"init"</span></span></span><br><span class="line"><span class="tag">        @<span class="attr">beforeInit</span>=<span class="string">"beforeInit"</span></span></span><br><span class="line"><span class="tag">        &gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- real component--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">st-series-sohu</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- skeleton component --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">st-series-sohu-skeleton</span> <span class="attr">slot</span>=<span class="string">"skeleton"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">vue-lazy-component</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transition-group</span> <span class="attr">:tag</span>=<span class="string">"tagName"</span> <span class="attr">name</span>=<span class="string">"lazy-component"</span> <span class="attr">style</span>=<span class="string">"position: relative;"</span></span></span><br><span class="line"><span class="tag">            @<span class="attr">before-enter</span>=<span class="string">"(el) =&gt; $emit('before-enter', el)"</span></span></span><br><span class="line"><span class="tag">            @<span class="attr">before-leave</span>=<span class="string">"(el) =&gt; $emit('before-leave', el)"</span></span></span><br><span class="line"><span class="tag">            @<span class="attr">after-enter</span>=<span class="string">"(el) =&gt; $emit('after-enter', el)"</span></span></span><br><span class="line"><span class="tag">            @<span class="attr">after-leave</span>=<span class="string">"(el) =&gt; $emit('after-leave', el)"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">"isInit"</span> <span class="attr">key</span>=<span class="string">"component"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">slot</span> <span class="attr">:loading</span>=<span class="string">"loading"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">"$slots.skeleton"</span> <span class="attr">key</span>=<span class="string">"skeleton"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"skeleton"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else</span> <span class="attr">key</span>=<span class="string">"loading"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">transition-group</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">        name: <span class="string">'VueLazyComponent'</span>,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        props: &#123;</span></span><br><span class="line"><span class="undefined">          timeout: &#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="built_in">Number</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          tagName: &#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">            <span class="keyword">default</span>: <span class="string">'div'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          viewport: &#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span> ? <span class="built_in">window</span>.HTMLElement : <span class="built_in">Object</span>,</span></span><br><span class="line"><span class="javascript">            <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">null</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          threshold: &#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">            <span class="keyword">default</span>: <span class="string">'0px'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          direction: &#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">            <span class="keyword">default</span>: <span class="string">'vertical'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          maxWaitingTime: &#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="built_in">Number</span>,</span></span><br><span class="line"><span class="javascript">            <span class="keyword">default</span>: <span class="number">50</span></span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        data () &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            isInit: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">            timer: <span class="literal">null</span>,</span></span><br><span class="line"><span class="javascript">            io: <span class="literal">null</span>,</span></span><br><span class="line"><span class="javascript">            loading: <span class="literal">false</span></span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        created () &#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 如果指定timeout则无论可见与否都是在timeout之后初始化</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span> (<span class="keyword">this</span>.timeout) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">              <span class="keyword">this</span>.init()</span></span><br><span class="line"><span class="javascript">            &#125;, <span class="keyword">this</span>.timeout)</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        mounted () &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span> (!<span class="keyword">this</span>.timeout) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 根据滚动方向来构造视口外边距，用于提前加载</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> rootMargin</span></span><br><span class="line"><span class="javascript">            <span class="keyword">switch</span> (<span class="keyword">this</span>.direction) &#123;</span></span><br><span class="line"><span class="javascript">              <span class="keyword">case</span> <span class="string">'vertical'</span>:</span></span><br><span class="line"><span class="javascript">                rootMargin = <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.threshold&#125;</span> 0px`</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">break</span></span></span><br><span class="line"><span class="javascript">              <span class="keyword">case</span> <span class="string">'horizontal'</span>:</span></span><br><span class="line"><span class="javascript">                rootMargin = <span class="string">`0px <span class="subst">$&#123;<span class="keyword">this</span>.threshold&#125;</span>`</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">break</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 观察视口与组件容器的交叉情况</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// intersectionObserver解决目标元素与视口产生一个交叉区，所以这个 API 叫做"交叉观察器"，比如在web网页开发中，常常需要了解某个元素是否进入了"视口"（viewport），即用户能不能看到它。</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.io = <span class="keyword">new</span> <span class="built_in">window</span>.IntersectionObserver(<span class="keyword">this</span>.intersectionHandler, &#123;</span></span><br><span class="line"><span class="undefined">              rootMargin,</span></span><br><span class="line"><span class="javascript">              root: <span class="keyword">this</span>.viewport,</span></span><br><span class="line"><span class="javascript">              threshold: [ <span class="number">0</span>, <span class="built_in">Number</span>.MIN_VALUE, <span class="number">0.01</span>]</span></span><br><span class="line"><span class="undefined">            &#125;)</span></span><br><span class="line"><span class="javascript">            <span class="comment">// root：The element that is used as the viewport for checking visiblity of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if null.</span></span></span><br><span class="line"><span class="undefined">            </span></span><br><span class="line"><span class="javascript">            <span class="comment">// rootMargin：Margin around the root. Can have values similar to the CSS margin property, e.g. "10px 20px 30px 40px" (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. Defaults to all zeros.</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// threshold：交叉区域大小[0,1],也是触发回调函数的条件,即第一个参数</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.io.observe(<span class="keyword">this</span>.$el)</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        beforeDestroy () &#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 在组件销毁前取消观察</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span> (<span class="keyword">this</span>.io) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.io.unobserve(<span class="keyword">this</span>.$el)</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        methods: &#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 交叉情况变化处理函数</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">          intersectionHandler (entries) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (</span></span><br><span class="line"><span class="undefined">                </span></span><br><span class="line"><span class="javascript">                <span class="comment">//time：可见性发生变化的时间，是一个高精度时间戳，单位为毫秒</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">               <span class="comment">// target：被观察的目标元素，是一个 DOM 节点对象</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">               <span class="comment">// rootBounds：根元素的矩形区域的信息，getBoundingClientRect()方法的返回值，如果没有根元素（即直接相对于视口滚动），则返回null</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">               <span class="comment">// boundingClientRect：目标元素的矩形区域的信息</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">               <span class="comment">// intersectionRect：目标元素与视口（或根元素）的交叉区域的信息</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">               <span class="comment">// intersectionRatio：目标元素的可见比例，即intersectionRect占boundingClientRect的比例，完全可见时为1，完全不可见时小于等于0 </span></span></span><br><span class="line"><span class="undefined">                </span></span><br><span class="line"><span class="undefined">                </span></span><br><span class="line"><span class="undefined">                </span></span><br><span class="line"><span class="javascript">              <span class="comment">// 正在交叉</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">              entries[0].isIntersecting ||</span></span><br><span class="line"><span class="javascript">              <span class="comment">// 交叉率大于0</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">              entries[0].intersectionRatio</span></span><br><span class="line"><span class="undefined">            ) &#123;</span></span><br><span class="line"><span class="javascript">              <span class="keyword">this</span>.init()</span></span><br><span class="line"><span class="javascript">              <span class="keyword">this</span>.io.unobserve(<span class="keyword">this</span>.$el)</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 处理组件和骨架组件的切换</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">          init () &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 此时说明骨架组件即将被切换</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.$emit(<span class="string">'beforeInit'</span>)</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.$emit(<span class="string">'before-init'</span>)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 此时可以准备加载懒加载组件的资源</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.loading = <span class="literal">true</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 由于函数会在主线程中执行，加载懒加载组件非常耗时，容易卡顿</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 所以在requestAnimationFrame回调中延后执行</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">              <span class="keyword">this</span>.isInit = <span class="literal">true</span></span></span><br><span class="line"><span class="javascript">              <span class="keyword">this</span>.$emit(<span class="string">'init'</span>)</span></span><br><span class="line"><span class="undefined">            &#125;)</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">          requestAnimationFrame (callback) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 防止等待太久没有执行回调</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 设置最大等待时间</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">              <span class="keyword">if</span> (<span class="keyword">this</span>.isInit) <span class="keyword">return</span></span></span><br><span class="line"><span class="undefined">              callback()</span></span><br><span class="line"><span class="javascript">            &#125;, <span class="keyword">this</span>.maxWaitingTime)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="comment">/*兼容不支持requestAnimationFrame 的浏览器*/</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="function">(<span class="params"><span class="built_in">window</span>.requestAnimationFrame || ((callback</span>) =&gt;</span> setTimeout(callback, <span class="number">1000</span> / <span class="number">60</span>)))(callback)</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">还有vue组件懒加载</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">5. 服务器渲染</span><br><span class="line">原理:将htmlDOM渲染以及数据先在服务器端处理，再通过传字符串的方式传到客户端</span><br><span class="line"></span><br><span class="line">react版本：</span><br><span class="line"></span><br><span class="line">```js</span><br><span class="line">  // server/page.js</span><br><span class="line">var React = require('react');</span><br><span class="line">var ReactDOMServer = require("react-dom/server");</span><br><span class="line"></span><br><span class="line">var App = require('../app/App');</span><br><span class="line"></span><br><span class="line">var ReactDOM = require('react-dom');</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">module.exports = function(props) &#123;</span><br><span class="line">  //ReactDOMServer 对象使你能够将组件渲染为静态标记。 通常，它在 Node 服务器上使用：</span><br><span class="line">  //renderToString()将 React 元素渲染到其初始 HTML 中。 该函数应该只在服务器上使用。 React 将返回一个 HTML 字符串。 您可以使用此方法在服务器上生成 HTML ，并在初始请求时发送标记，以加快网页加载速度，并允许搜索引擎抓取你的网页以实现 SEO 目的。</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  // 在服务器上使用 renderToString ，而在客户端上使用 ReactDOM.hydrate() 。</span><br><span class="line">	var content = ReactDOMServer.renderToString(</span><br><span class="line">		<span class="tag">&lt;<span class="name">App</span> <span class="attr">initialCount</span>=<span class="string">&#123;props.initialCount&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">App</span>&gt;</span></span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">	var propsScript = 'var APP_PROPS = ' + JSON.stringify(props);</span><br><span class="line">	//renderToStaticMarkup(),类似于 renderToString,除了这不会创建 React 在内部使用的额外DOM属性，如 data-reactroot。如果你打算使用客户端上的 React ，使标记具有交互性，请不要使用此方法。</span><br><span class="line">	var html = ReactDOMServer.renderToStaticMarkup(</span><br><span class="line">		<span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span> <span class="attr">dangerouslySetInnerHTML</span>=<span class="string">&#123;</span></span></span><br><span class="line"><span class="tag">					&#123;<span class="attr">__html:</span> <span class="attr">content</span>&#125;</span></span><br><span class="line"><span class="tag">				&#125; /&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">script</span> <span class="attr">dangerouslySetInnerHTML</span>=<span class="string">&#123;</span></span></span><br><span class="line"><span class="tag">					&#123;<span class="attr">__html:</span> <span class="attr">propsScript</span>&#125;</span></span><br><span class="line"><span class="tag">				&#125;&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&#123;</span>"<span class="attr">assets</span>/<span class="attr">entry.generator.js</span>"&#125;&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">	return html;</span><br><span class="line">&#125;</span><br><span class="line">  // server/index.js</span><br><span class="line">  var express = require('express');</span><br><span class="line">var path = require('path');</span><br><span class="line"></span><br><span class="line">var page = require("./page.generator.js").page;</span><br><span class="line"></span><br><span class="line">var app = express();</span><br><span class="line">var port = 8082;</span><br><span class="line"></span><br><span class="line">app.use(express.static(path.join(__dirname, '..', 'public')));</span><br><span class="line"></span><br><span class="line">app.get('/', function(req, res) &#123;</span><br><span class="line">	var props = &#123;</span><br><span class="line">		initialCount: 9</span><br><span class="line">	&#125;;</span><br><span class="line">	var html = page(props);</span><br><span class="line">	res.end(html);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(port, function() &#123;</span><br><span class="line">	console.log('Listening on port %d', port);</span><br><span class="line">&#125;);</span><br><span class="line">// App.js</span><br><span class="line">var React = require('react');</span><br><span class="line"></span><br><span class="line">var App = React.createClass(&#123;</span><br><span class="line">	getInitialState: function() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            count: this.props.initialCount</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    _increment: function() &#123;</span><br><span class="line">        this.setState(&#123; count: this.state.count + 1 &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">	render: function() &#123;</span><br><span class="line">		return (</span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>the count is: <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span> <span class="attr">onClick</span>=<span class="string">&#123;this._increment&#125;</span>&gt;</span>&#123;this.state.count&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = App;</span><br><span class="line">//entry.js</span><br><span class="line">var React = require('react'),</span><br><span class="line">	ReactDOM = require('react-dom'),</span><br><span class="line">	App = require('./App');</span><br><span class="line"></span><br><span class="line">var APP_PROPS = window.APP_PROPS || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">	<span class="tag">&lt;<span class="name">App</span> <span class="attr">initialCount</span>=<span class="string">&#123;APP_PROPS.initialCount&#125;/</span>&gt;</span>,</span><br><span class="line">	document.getElementById('root')</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/loadOptimization/" data-id="cjguhg3sx000jlgwb29f96z6q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-learning_c++_chapter1-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/learning_c++_chapter1-2/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.234Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="c-系统学习第一天"><a href="#c-系统学习第一天" class="headerlink" title="c++系统学习第一天"></a>c++系统学习第一天</h1><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><ul>
+<li><strong>const</strong> type name = value //const定义必须赋初始值，后期不能修改</li>
+<li>setw(n) 设置输出n个长度，缺少补全</li>
+<li>setprecision(n) 设置精确度，即规定小数点后有几位</li>
+<li>left，right 设置对齐方向</li>
+<li>变量属性： Name(名字),Type(种类),Lifetime(生存时间),Scope(作用域)</li>
+<li>没有初始值的变量的值是undefined;</li>
+<li>命名规范：1.下划线_开头。2.不允许空格和特殊字符串作为名字 3. 不能是保留字 4. 对大小写敏感 5.小于31个字符</li>
+<li>include “simpio.h” 此库包括 GetInterger,GetLong,GetReal,GetLine 方法，等待用户输入一行文字，返回int,long,double,string类型的输入值 例子：n = GetInterger();</li>
+<li>输出： 字符串和变量可以用 “&lt;&lt;” 连接 一起输出，如cont&lt;&lt;”The result is”&lt;&lt; val &lt;&lt; endl;</li>
+</ul>
+<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><ul>
+<li>枚举类型 <strong>enum</strong> name {element-list}</li>
+</ul>
+<p>举例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> directionT &#123;North ,East ,South,West&#125;;</span><br><span class="line"><span class="comment">//创造一个枚举类 directionT</span></span><br><span class="line">directionT dir;</span><br><span class="line"><span class="comment">//再创建一个枚举实例 dir</span></span><br><span class="line"></span><br><span class="line"><span class="function">directionT <span class="title">RightFrom</span> <span class="params">(directionT dir)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> directionT((dir+<span class="number">1</span>)%<span class="number">4</span>);</span><br><span class="line">    <span class="comment">//dir 类似于枚举集合的首个下标</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//directionT(dir) 是枚举集合的首个枚举值</span></span><br><span class="line"><span class="keyword">for</span> (directionT dir  = North;dir &lt;= West;dir = directionT(dir+<span class="number">1</span>))</span><br></pre></td></tr></table></figure></p>
+<p>枚举类型每个值有默认值为 枚举下标，比如上例中North的下标为0，默认值为0。如果想赋值，则在定义的时候应该写 enum directionT{North = 10,East},当某个枚举值后面的值没有定义默认值时后面的枚举值的值为此枚举值的值+1，即其中East = 11。</p>
+<ul>
+<li>sizeof(int)返回参数所需要占的内存大小</li>
+<li><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x,y;</span><br><span class="line"><span class="keyword">int</span> *p1 *p2;</span><br><span class="line">x=<span class="number">-42</span>;y=<span class="number">163</span>;</span><br><span class="line">p1=&amp;x;p2=&amp;y;</span><br><span class="line">*p1  <span class="comment">//-42;</span></span><br><span class="line">*p2 <span class="comment">//163;</span></span><br><span class="line">*p1 = <span class="number">17</span>;</span><br><span class="line">x <span class="comment">//17</span></span><br><span class="line">p1 = p2 <span class="comment">// 把p2的地址给p1 则 *p1 等于y</span></span><br><span class="line">*p1 = *p2 <span class="comment">//把p2指向的值赋给*p1 x等于y</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算数组有多少个元素，即长度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> number = <span class="keyword">sizeof</span> a / <span class="keyword">sizeof</span> a[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传数组进入函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SumIntegerArray</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[],<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SumIntegerArray</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>,<span class="keyword">int</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结构体与指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">employeeRecordT</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="built_in">string</span> title;</span><br><span class="line">    <span class="built_in">string</span> ssnum;</span><br><span class="line">&#125;;</span><br><span class="line">employeeRecordT *empPtr;</span><br><span class="line">employeeRecordT empRec;</span><br><span class="line">empPtr = &amp;empRec;</span><br><span class="line">*(empPtr.salary);</span><br><span class="line">empPtr-&gt;salary</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态分配</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *ip = <span class="keyword">new</span> <span class="keyword">int</span>;</span><br><span class="line">employeeRecordT *empPtr = <span class="keyword">new</span> emploeeRecordT;</span><br><span class="line"><span class="keyword">int</span> *intList = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">12</span>];<span class="comment">//分配了12个int大小的内存</span></span><br><span class="line"><span class="comment">//和new 配套的释放空间操作</span></span><br><span class="line"><span class="keyword">delete</span> ip;</span><br><span class="line"><span class="keyword">delete</span>[] intList;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>库与接口</p>
+</li>
+</ul>
+<p>&lt;random.h&gt;</p>
+<p>包括的方法：RandomInteger,RandomReal,RandomChance,Randomize</p>
+<ul>
+<li><p>接口板式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _random_h</span></span><br><span class="line"><span class="comment">//如果_random_h在之前就已经定义了则不会执行到endif之间的代码</span></span><br><span class="line">#define_random_h</span><br><span class="line"><span class="comment">//在这里面定义random.h里面的方法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">RandomInteger</span><span class="params">(<span class="keyword">int</span> low,<span class="keyword">int</span> high)</span></span>;</span><br><span class="line"><span class="comment">//返回两个数间的随机数包括界点</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">RandomReal</span><span class="params">(<span class="keyword">double</span> low, <span class="keyword">double</span> high)</span></span>;</span><br><span class="line"><span class="comment">//[0,1),左闭右开</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">RandomChance</span><span class="params">(<span class="keyword">double</span> p)</span></span>;</span><br><span class="line"><span class="comment">//返回p概率下的布尔值</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Randomize</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//生成一个伪随机数，在同一个运行环境下，每次运行生成的随机数都相同。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><string>接口 </string></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> str1 = <span class="string">"Hello Word!"</span>;</span><br><span class="line"><span class="keyword">int</span> numChars =str.length();<span class="comment">//返回字符串长度</span></span><br><span class="line">str.at(pos) == str[pos]; </span><br><span class="line"><span class="comment">//两个都返回字符串中下标为pos的字符</span></span><br><span class="line">str.substr(pos,len);</span><br><span class="line"><span class="comment">//返回从pos位置开始的长度为len的字符串，str并没有改变，如果len没给，则到最后一个字符</span></span><br><span class="line">str.find(ch,pos)</span><br><span class="line"><span class="comment">//返回从pos位置开始找等于ch字符的下标，如果没有给pos，则第一个字符开始找。如果没出现，则返回string::npos这个定值</span></span><br><span class="line">str.find(pattern,pos)<span class="comment">//和上面一样，只不过是找pattern这个字符串</span></span><br><span class="line">str.insert(pos,txt)<span class="comment">//将txt从str的pos位置插入</span></span><br><span class="line">str.replace(pos,count,txt)<span class="comment">//将str从pos位置开始的count长度的字符串用txt代替</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;strutils.h&gt;头文件</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _strutils_h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _strutils_h</span></span><br><span class="line"><span class="meta">#inclde <span class="meta-string">"genlib.h"</span></span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">ConvertToLowerCase</span><span class="params">(<span class="built_in">string</span> s)</span></span>;<span class="comment">//将字母转为小写</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">ConvertToUpperCase</span><span class="params">(<span class="built_in">string</span> s)</span></span>;<span class="comment">//将字母转为大写</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">StringToInteger</span><span class="params">(<span class="built_in">string</span> s)</span></span>;<span class="comment">//将字符串转换成数字</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">IntegerToString</span><span class="params">(<span class="keyword">int</span> n)</span></span>;<span class="comment">//将数字转换成字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">RealToString</span><span class="params">(<span class="keyword">double</span> d)</span></span>;<span class="comment">//将浮点数转换成字符串</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">StringToReal</span><span class="params">(<span class="built_in">string</span> s)</span></span>;<span class="comment">//将字符串转换成浮点数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>转换成C++字符串</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> str = <span class="built_in">string</span>(<span class="string">"Hello"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标准输入输出文件&lt;iostream.h&gt;</p>
+</li>
+<li><p>获取和修改文件内容</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">  ifstream infile;<span class="comment">//输入文本流变量</span></span><br><span class="line">  ofstream outfile;<span class="comment">//输出文本流变量</span></span><br><span class="line">  infile.open(<span class="string">"jabberwocky.txt"</span>);<span class="comment">//打开文件，参数是c风格的</span></span><br><span class="line"> <span class="comment">//如果 文件名是变量表示的:</span></span><br><span class="line"> <span class="built_in">string</span> str = ...;</span><br><span class="line"> infile.open(str.c_str());<span class="comment">//将变量str转换成c风格的字符串</span></span><br><span class="line"><span class="comment">//如果 打开文件失败:</span></span><br><span class="line"><span class="keyword">if</span>(infile.fail())Error(<span class="string">"Could not open file"</span>)</span><br><span class="line">infile.clear();</span><br><span class="line"><span class="comment">//数据处理完毕，关闭文件</span></span><br><span class="line">infile.close();</span><br><span class="line"></span><br><span class="line"><span class="built_in">cin</span>&gt;&gt; <span class="comment">//输入  </span></span><br><span class="line">cout&lt;&lt;//输出： 数字，字符串，数组第一个元素，不能直接输出结构体，要根据属性输出</span><br><span class="line"><span class="built_in">cerr</span> <span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"> infile.get()<span class="comment">//在输入流中获取一个字符，返回一个int类型的数值，如果输入流中没有则返回EOF</span></span><br><span class="line"> infile.unget()<span class="comment">//将读入的最后一个字符退回到输入流上</span></span><br><span class="line"> getline(infile,str)</span><br><span class="line"> <span class="comment">//是全局方法，不用点号(.)来调用，作用是将输入流中的下一行复制到str字符串中</span></span><br><span class="line"> inflie&gt;&gt;var </span><br><span class="line"> <span class="comment">// 从输入流中读取一个值放入变量var中</span></span><br><span class="line"> outfile.put(ch)</span><br><span class="line"> <span class="comment">//将ch这个字符放入到输出流outfile中</span></span><br><span class="line"> outfile &lt;&lt; expr</span><br><span class="line"> <span class="comment">//将expr写入到输出流中</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">```c++</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="built_in">isupper</span>(ch) </span><br><span class="line"><span class="comment">//大写字母返回ture</span></span><br><span class="line"><span class="built_in">islower</span>(ch)</span><br><span class="line"><span class="comment">//小写字母返回true</span></span><br><span class="line"><span class="built_in">isalpha</span>(ch)</span><br><span class="line"><span class="comment">//英文字母返回true</span></span><br><span class="line"><span class="built_in">isdigit</span>(ch)</span><br><span class="line"><span class="comment">//阿拉伯数字返回true</span></span><br><span class="line"><span class="built_in">ispunct</span>(ch)</span><br><span class="line"><span class="comment">//标点符号返回true</span></span><br><span class="line"><span class="built_in">isspace</span>(ch)</span><br><span class="line"><span class="comment">//字符能在屏幕里展现空白符，比如“空格，\t,\n,\f,\v”返回true</span></span><br><span class="line"><span class="built_in">isprint</span>(ch)</span><br><span class="line"><span class="comment">//字符为可打印字符（包括空格）返回true</span></span><br><span class="line"><span class="built_in">toupper</span>(ch);<span class="built_in">tolower</span>(ch);</span><br><span class="line"><span class="comment">//将ch转换成大，小写字母</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="built_in">fabs</span>(x) </span><br><span class="line"><span class="comment">//返回绝对值</span></span><br><span class="line"><span class="built_in">floor</span>(x)</span><br><span class="line"><span class="comment">// 向下取整</span></span><br><span class="line"><span class="built_in">ceil</span>(x)</span><br><span class="line"><span class="comment">//向上取整</span></span><br><span class="line"><span class="built_in">fmod</span>(x,y)</span><br><span class="line"><span class="comment">//返回x/y的浮点余数</span></span><br><span class="line"><span class="built_in">sqrt</span>(x)</span><br><span class="line"><span class="comment">//返回x的开方</span></span><br><span class="line"><span class="built_in">pow</span>(x,y)</span><br><span class="line"><span class="comment">//返回x的y次方</span></span><br><span class="line"><span class="built_in">exp</span>(x)</span><br><span class="line"><span class="comment">//返回e的x次方</span></span><br><span class="line"><span class="built_in">log</span>(x)</span><br><span class="line"><span class="comment">//返回x的自然对数</span></span><br><span class="line"><span class="built_in">sin</span>(theta)</span><br><span class="line"><span class="built_in">cos</span>(theta)</span><br><span class="line"><span class="built_in">atan</span>(x)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>第四章 抽象数据类型</p>
+</li>
+<li><p>Vector class 向量类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"vector.h"</span></span></span><br><span class="line">    Vector&lt;<span class="keyword">int</span>&gt; vec;<span class="comment">//声明一组数字类型的向量</span></span><br><span class="line">   vec.size()<span class="comment">//返回vec向量的元素数量</span></span><br><span class="line">   vec.isEmpty()<span class="comment">//如果为空返回true</span></span><br><span class="line">   vec.getAt(index)==vec[index]</span><br><span class="line">   <span class="comment">//返回vec中下标为index的值</span></span><br><span class="line">   vec.setAt(index,value)</span><br><span class="line">   <span class="comment">//将vec中index位置的值设置为value,如果index超出下标界限则报错</span></span><br><span class="line">   vec.add(value) </span><br><span class="line">   <span class="comment">//在vec尾部添加一个值</span></span><br><span class="line">   vec.insertAt(index,value)</span><br><span class="line"><span class="comment">//在vec中index位置的值之前插入一个值value</span></span><br><span class="line">vec.removeAt(index)</span><br><span class="line"><span class="comment">//删除index位置上的值</span></span><br><span class="line">vec.clear()</span><br><span class="line"><span class="comment">//清空vec</span></span><br><span class="line">vec.iterator()</span><br><span class="line"><span class="comment">//返回所有元素的迭代总和</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Grid class 格子类</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Grid&lt;<span class="keyword">double</span>&gt; matrix(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">matrix.numRows()</span><br><span class="line">matrix.numCols()</span><br><span class="line"><span class="comment">//返回matrix的行数和列数</span></span><br><span class="line">matrix.getAt(row,col)</span><br><span class="line">matrix.setAt(row,col,value)</span><br><span class="line">matrix.resize(rows,cols)</span><br><span class="line"><span class="comment">//重新定义matrix的大小，之前的内容都被丢弃</span></span><br><span class="line">matrix.iterator()<span class="comment">//返回一个遍历元素的迭代器</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>stack 堆类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stack&lt;<span class="keyword">int</span>&gt; sta;</span><br><span class="line">sta.size();</span><br><span class="line">sta.isEmpty();</span><br><span class="line">sta.push(value);<span class="comment">//在堆顶添加一个元素</span></span><br><span class="line">sta.pop()<span class="comment">//从堆顶弹出一个元素</span></span><br><span class="line">sta.peek()<span class="comment">//返回堆顶的值但是不弹出</span></span><br><span class="line">sta.clear()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Queue class 队列类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"queue.h"</span></span></span><br><span class="line"> Queue&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line"> que.size()</span><br><span class="line"> que.isEmpty()</span><br><span class="line"> que.enqueue(value) <span class="comment">//向队尾推入一个值</span></span><br><span class="line"> que.dequeue()<span class="comment">//将队首的值拿出并返回</span></span><br><span class="line"> que.peek()<span class="comment">//返回队首值但不拿出</span></span><br><span class="line"> que.clear()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Map class map类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;<span class="built_in">string</span>&gt; dictionary;</span><br><span class="line">dictionary.size();</span><br><span class="line">dictionary.isEmpty();</span><br><span class="line">dictionary.put(key,value)==dictionary[key]=value<span class="comment">//在dictionary中添加或者重置键为key的值</span></span><br><span class="line">dictionary.remove(key)</span><br><span class="line">dictionary.containKey(key)<span class="comment">//存在这个键返回true</span></span><br><span class="line">dictionary.clear();</span><br><span class="line">dictionary.iterator();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Lexicon class 词汇类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lexicon.h"</span></span></span><br><span class="line"><span class="function">Lexicon <span class="title">english</span><span class="params">(<span class="string">"EnglishWords.dat"</span>)</span></span>;</span><br><span class="line">english.size()<span class="comment">//返回english这个词汇里有多少个词</span></span><br><span class="line">english.isEmpty();</span><br><span class="line">english.add(word);<span class="comment">//给english词汇表添加一个词，如果已经存在则操作无效</span></span><br><span class="line">english.addWordsFromFile(name)<span class="comment">//将文件名字为name中的所有词添加到english中，其中文件必须是每一个词一行</span></span><br><span class="line"><span class="keyword">if</span>(english.containsWords(word))...<span class="comment">//判断word是否在english这个词汇表里面，返回bool</span></span><br><span class="line"><span class="keyword">if</span>(english.containsPrefix(prefix))<span class="comment">//判断词汇表里面是否有哪个词以prefix开头，返回bool</span></span><br><span class="line">english.clear();</span><br><span class="line">english.iterator();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Scanner class 扫描类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    Scanner scanner;</span><br><span class="line">    scanner.setInput(str)</span><br><span class="line"> <span class="comment">//输入被扫描字符串</span></span><br><span class="line">    scanner.setInpt(stream)</span><br><span class="line"> <span class="comment">//输入被扫描输入流</span></span><br><span class="line">    scanner.hasMoreTokens()</span><br><span class="line"><span class="comment">//如果还有额外的tokens返回true</span></span><br><span class="line">    scanner.nextToken()</span><br><span class="line"><span class="comment">// 返回下一个token</span></span><br><span class="line">    scanner.saveToken(token)</span><br><span class="line"><span class="comment">//将token存储在目前扫描string的状态位置上</span></span><br><span class="line">    setSpaceOption(option)</span><br><span class="line">    getSpaceOpition()</span><br><span class="line"><span class="comment">//option可以为：Scanner::PreserveSpaces Scanner::IgnoreSpaces 设置是将多个空白符返回成一个空白符还是直接忽视所有空白符</span></span><br><span class="line"></span><br><span class="line">setNumberOption(option)</span><br><span class="line">getNumberOption()</span><br><span class="line"><span class="comment">//option可选：</span></span><br><span class="line"><span class="comment">//Scanner::ScanNumbersAsLetters</span></span><br><span class="line"><span class="comment">//Scanner::ScanNumbersAsIntegers</span></span><br><span class="line"><span class="comment">//Scanner::ScanNumbersAsReals</span></span><br><span class="line"><span class="comment">//将设置扫描到的数字字符串视为什么，默认为文字</span></span><br><span class="line"></span><br><span class="line">setStringOption(option)</span><br><span class="line">getStringOption()</span><br><span class="line"><span class="comment">//option：Scanner::ScanQuotesAsPunctuation Scanner::ScanQutesAsStrings设置是否将引号作为单个token，默认引号为标点符号</span></span><br><span class="line"></span><br><span class="line">setBrancketOption(option)</span><br><span class="line">getBracketOption()</span><br><span class="line"><span class="comment">//option：Scanner::ScanBracketsAsPunctuation Scanner::ScanBracketsAsTag 设置是否将HTML的标签设置为单个token，默认为符号</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>iterator的使用方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Lexicon::Iterator iter = english.iterator();</span><br><span class="line"><span class="keyword">while</span>(iter.hasNext())&#123;</span><br><span class="line">    <span class="built_in">string</span> word = iter.next();</span><br><span class="line">    <span class="keyword">if</span>(word.length()==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; word &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>foreach</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach(<span class="built_in">string</span> words in english)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/learning_c++_chapter1-2/" data-id="cjguhg3ss000elgwb22bmbuen" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jsonp&amp;promise" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/jsonp&promise/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.205Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题小杂烩"><a href="#问题小杂烩" class="headerlink" title="问题小杂烩"></a>问题小杂烩</h1><h2 id="jsonp解决跨域"><a href="#jsonp解决跨域" class="headerlink" title="jsonp解决跨域"></a>jsonp解决跨域</h2><p><strong>实现思路:</strong></p>
+<ol>
+<li>前端创建回调函数，假设为callback()，函数中是对返回的数据的操作</li>
+<li>前端动态创建script 元素</li>
+<li>将script的src设为服务器路由地址，pathname中一个参数为funcName = callback</li>
+<li>后台服务器处理url，接收数据参数以及分解出”callback”这个函数名</li>
+<li>后台服务器处理完后返回”callback(params)”这个字符串，params是本来应该返回的json数据</li>
+<li>前端接到返回的数据后执行callback函数，完成跨域</li>
+</ol>
+<p>例子:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">    //添加<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">标签的方法</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">addScriptTag</span>(<span class="params">src</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span></span><br><span class="line"><span class="javascript">        script.setAttribute(<span class="string">"type"</span>,<span class="string">"text/javascript"</span>);</span></span><br><span class="line"><span class="undefined">        script.src = src;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.body.appendChild(script);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    </span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//搜索apple，将自定义的回调函数名result传入callback参数中</span></span></span><br><span class="line"><span class="javascript">        addScriptTag(<span class="string">"http://ajax.googleapis.com/ajax/services/search/web?v=1.0&amp;q=apple&amp;funcName=callback"</span>);</span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//自定义的回调函数result</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//我们就简单的获取apple搜索结果的第一条记录中url数据</span></span></span><br><span class="line"><span class="undefined">        alert(data);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>参考:<br><a href="www.cnblogs.com/September-sheep/p/7942465.html">jsonp实现跨域 </a><br><a href="http://www.cnblogs.com/chopper/archive/2012/03/24/2403945.html" target="_blank" rel="noopener">深入浅出JSONP–解决ajax跨域问题</a></p>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p>Promise 有自己的状态(state):</p>
+<pre><code>Fulfilled： 成功
+
+Rejected：拒绝
+
+Pending： 进行中
+</code></pre><blockquote>
+<p> 当new 一个Promise对象的时候， 我们能接收到两个方法参数： resolve和reject, 当调用 resolve方法的时候，会把Promise对象的状态从Pending变为Fulfilled（表示异步操作成功了），当调用 reject方法的时候， 会把Promise对象的状态从Pending变为Rejected，表示异步操作失败了， 而如果这两个函数没有调用，则Promise对象的状态一直是Pending（表示异步操作正在进行）</p>
+</blockquote>
+<p>使用方法:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="comment">/*异步操作成功*/</span>)&#123;</span><br><span class="line">         resolve(value);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         reject(err);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;)</span><br><span class="line"> <span class="comment">//处理返回数据：</span></span><br><span class="line"></span><br><span class="line"> promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">     <span class="comment">//成功</span></span><br><span class="line"> &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">     <span class="comment">//失败</span></span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>不用promise写回调函数可能产生的bug</p>
+<ul>
+<li>函数调用时间不确定，可能异步可能同步</li>
+<li>调用时间过多</li>
+<li>调用时间太晚或者根本没有调用</li>
+<li>错误无法捕捉</li>
+<li>代码太冗余，难以理解</li>
+</ul>
+</li>
+<li><p>使用情况</p>
+<ul>
+<li><p>“链式”:多个回调函数，上一个回调函数的返回值是下一个回调函数的参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//每一个then里面的异步操作可以返回一个值，传递给下一个异步操作</span></span><br><span class="line">promise.then(</span><br><span class="line"></span><br><span class="line">).then(</span><br><span class="line"></span><br><span class="line">).then(</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“门”:多个异步都得到结果后对所有结果进行综合处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all([</span><br><span class="line">    promise1,</span><br><span class="line">    promise2</span><br><span class="line">    ])</span><br><span class="line">.then(<span class="function">(<span class="params">[data1, data2]</span>) =&gt;</span>  getDataAndDoSomething (data1,data2)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>all方法接收一个大Promise数组，并返回一个新的大“Promise”，只有所有的Promise的状态都是Fulfilled，这个大Promise才能转化为成功，参数与数组中的promise相对应</p>
+</blockquote>
+</li>
+<li><p>“竞态”：一组异步操作，其中一个完成了， 这组异步操作便算是整体完成了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">Promise</span>.race([p1, p2, p3]);</span><br><span class="line"><span class="comment">//只要p1、p2、p3之中有一个Promise率先改变状态，p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>参考: [【javascript】异步编年史，从“纯回调”到Promise](http://www.cnblogs.com/penghuwan/p/7451409.html)
+</code></pre><h2 id="同步，异步，阻塞，非阻塞的关系"><a href="#同步，异步，阻塞，非阻塞的关系" class="headerlink" title="同步，异步，阻塞，非阻塞的关系"></a>同步，异步，阻塞，非阻塞的关系</h2><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><blockquote>
+<p>同步是两个对象之间的关系，而阻塞是一个对象的状态。</p>
+</blockquote>
+<h3 id="本质上并没有关系"><a href="#本质上并没有关系" class="headerlink" title="本质上并没有关系"></a>本质上并没有关系</h3><ul>
+<li>同步与异步是关于指令执行顺序的。</li>
+<li>阻塞非阻塞是关于线程与进程的。</li>
+<li>两者本身并没有必然的关联系。</li>
+</ul>
+<h3 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h3><blockquote>
+<p>同步和异步关注的是消息通讯机制。<br>所谓同步，就是在发出一个“调用”时，在没有得到结果之前，该“调用”就不返回。但是一旦调用返回，就得到返回值了。就是指“调用者”主动等待这个“调用的”结果。而异步则是相反，“调用”在发出之后，这个调用就直接返回了，所以没有返回结果。换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在“调用”发出后，“被调用者”通过状态、通知来通知调用者，或通过回调函数处理这个调用。 </p>
+</blockquote>
+<p>同步：执行一个操作之后，等待结果，然后才继续执行后续的操作。</p>
+<p>异步：执行一个操作后，可以去执行其他的操作，然后等待通知再回来执行刚才没执行完的操作。</p>
+<h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><blockquote>
+<p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。<br>阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。</p>
+</blockquote>
+<p>阻塞：进程给CPU传达一个任务之后，一直等待CPU处理完成，然后才执行后面的操作。</p>
+<p>非阻塞：进程给CPU传达任务后，继续处理后续的操作，隔断时间再来询问之前的操作是否完成。这样的过程其实也叫轮询。</p>
+<p>参考:<br><a href="https://www.zhihu.com/question/19732473" target="_blank" rel="noopener">知乎问题</a><br><a href="http://xiaoh.me/2016/05/31/sync-async/" target="_blank" rel="noopener">同步，异步，阻塞，非阻塞的理解</a><br><a href="https://github.com/calidion/calidion.github.io/issues/40" target="_blank" rel="noopener">同步，异步，阻塞，非阻塞等关系轻松理解</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/jsonp&promise/" data-id="cjguhg3sj000blgwbst260fc6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-http" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/http/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.162Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="http学习"><a href="#http学习" class="headerlink" title="http学习"></a>http学习</h1><p>我本来是打算学习koa，然后写点学习总结。但是当教程中介绍到app.listen(…)时，其中提到app.listen(3000)是http.createServer(app.callback()).listen(3000);的“语法糖”,就让我对http.createSever()方法产生兴趣。于是就开始了追根溯源之旅~</p>
+<p><strong>httpcreateServer()</strong></p>
+<p>这是node.js封装的一个http模块的方法，从字面意思看出来就是创建一个http服务器，与之相对应的还有个http.request(),即创建一个客户端。<br>一般的用法是这样：</p>
+<pre><code>var http = require(&apos;http&apos;);
+
+http.createServer(function(req, res) {
+
+// 主页
+if (req.url == &quot;/&quot;) {
+    res.writeHead(200, { &quot;Content-Type&quot;: &quot;text/html&quot; });
+    res.end(&quot;Welcome to the homepage!&quot;);
+}
+
+// About页面
+else if (req.url == &quot;/about&quot;) {
+    res.writeHead(200, { &quot;Content-Type&quot;: &quot;text/html&quot; });
+    res.end(&quot;Welcome to the about page!&quot;);
+}
+
+// 404错误
+else {
+    res.writeHead(404, { &quot;Content-Type&quot;: &quot;text/plain&quot; });
+    res.end(&quot;404 error! File not found.&quot;);
+}
+
+}).listen(8080, &quot;localhost&quot;);
+</code></pre><p>但这仍旧是node.js已经封装好的方法，而我想知道的如何用最原生的语言创建一个http服务器。而在阅读完很多不同语言的实现web服务器的文档后，发现比较核心的有这么2个专业名词。</p>
+<p><strong>超文本传送协议HTTP</strong></p>
+<p>http是个协议，有固定的格式，不同客户端的不同浏览器向万维网服务器请求万维网文档以及服务器把文档传送给浏览器的时候都要遵守它。</p>
+<p>http有以下几个值得注意的特点:</p>
+<ol>
+<li>面向事务。要么所有的信息交换都完成，要么一次都不进行。</li>
+<li>无状态。每一次访问都是独立的，服务器不会记录任何访问之间的关系。</li>
+<li><p>http的报文结构</p>
+<p> (1). 开始行。区分是请求报文还是响应报文</p>
+<p> (2). 首部行。说明浏览器，服务器或者报文主体的一些信息。</p>
+<p> (3). 实体主体。</p>
+</li>
+<li><p>HTTP/1.1协议使用了持续连接，即服务器发送响应后在一段时间内保持与客户端的连接，使得服务器可以继续在连接上发送后续的http请求报文和响应报文。</p>
+</li>
+</ol>
+<p><strong>Socket</strong></p>
+<p><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=17baf4c7d739b60059c307e588395e4f/d000baa1cd11728b45647b06cafcc3cec3fd2c4c.jpg" alt="socket"></p>
+<p>socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；做个比喻就是：HTTP是轿车，提供了封装或者显示数据的具体形式；而Socket是发动机，提供了网络通信的能力。<br>其中的很多函数可以自己查阅资料。</p>
+<h1 id="神经网络学习总结"><a href="#神经网络学习总结" class="headerlink" title="神经网络学习总结"></a>神经网络学习总结</h1><h2 id="什么是神经网络？"><a href="#什么是神经网络？" class="headerlink" title="什么是神经网络？"></a>什么是神经网络？</h2><p>我们把大脑看成是一个高度复杂的，非线性的和并行的计算机器，而神经元就是组织它的组成部分；每当触及听觉，视觉，感觉等需要大脑处理的事件时，神经元就在以超级迅速的速度进行特别地计算。</p>
+<pre><code>神经网络是由简单处理单元构成的大规模并行分布式处理器，天然地具有存储经验支持和使之可用地特性。
+</code></pre><p>理解：简单处理单元：神经元。并行：同时处理多个进程。分布式：将某个进程分为多个子进程交给不同的神经元处理。通过学习获得并且存储经验。</p>
+<pre><code>1. 神经网络是通过学习过程从外界环境中获取知识的。
+2. 互连神经元的连接强度，即突触权值，用于存储获取的知识。
+</code></pre><h2 id="神经网络有用的性质和能力"><a href="#神经网络有用的性质和能力" class="headerlink" title="神经网络有用的性质和能力"></a>神经网络有用的性质和能力</h2><p>（理解可能有误，不能全信）</p>
+<h3 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h3><p>“人工神经元可以是线性或者非线性的”。当神经网络在处理一个进程时，得到的信息和输出的信息（转化为动作）并不是线性依赖关系。</p>
+<h3 id="输入输出映射"><a href="#输入输出映射" class="headerlink" title="输入输出映射"></a>输入输出映射</h3><p>“即教师学习，监督学习。利用带标号的训练样例，通过不断调整突触权值重复训练神经网络，直到神经网络达到对突触权值没有显著修正的稳定状态”。理解为不断得让神经网络获得信息，并且不断地改变突触权值直到输出的信息和目标信息极其相似，并且记录下当时的突触权值。</p>
+<h3 id="自适应"><a href="#自适应" class="headerlink" title="自适应"></a>自适应</h3><p>“神经网络具有调整自身突触权值以适应外界环境编号的固有能力”。在环境变化不大时，神经网络看也很容易进行重新训练。在不稳定环境中，它自身可以设计神经网络使得突触权值随时间实时变化。</p>
+<h3 id="证据响应"><a href="#证据响应" class="headerlink" title="证据响应"></a>证据响应</h3><p>神经网络在获得信息后会先对信息进行模式分类，其不仅可以设计不同的提供选择哪一个特定模式的信息，还可以排除一些模糊的模式，提高分类性能。</p>
+<h3 id="上下文信息"><a href="#上下文信息" class="headerlink" title="上下文信息"></a>上下文信息</h3><p>神经网络的每个神经元都受其它神经元全局活动的潜在影响。</p>
+<h3 id="容错性"><a href="#容错性" class="headerlink" title="容错性"></a>容错性</h3><p>当某个神经元或它的连接坏了，其产生的并不是毁灭性的失败，而是缓慢恶化的过程。因为神经网络信息存储是分布的。</p>
+<h2 id="人脑中神经网络分层"><a href="#人脑中神经网络分层" class="headerlink" title="人脑中神经网络分层"></a>人脑中神经网络分层</h2><p>中枢神经系统</p>
+<p>↑</p>
+<p>区域电路</p>
+<p>↑</p>
+<p>局部电路</p>
+<p>↑</p>
+<p>神经元</p>
+<p>↑</p>
+<p>树突树</p>
+<p>↑</p>
+<p>神经微电路</p>
+<p>↑</p>
+<p>突触</p>
+<p>↑</p>
+<p>分子</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/http/" data-id="cjguhg3sj0009lgwb9k3kz5hh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-goodreading_1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/goodreading_1/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.144Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="神经网络学习总结"><a href="#神经网络学习总结" class="headerlink" title="神经网络学习总结"></a>神经网络学习总结</h1><h2 id="什么是神经网络？"><a href="#什么是神经网络？" class="headerlink" title="什么是神经网络？"></a>什么是神经网络？</h2><p>我们把大脑看成是一个高度复杂的，非线性的和并行的计算机器，而神经元就是组织它的组成部分；每当触及听觉，视觉，感觉等需要大脑处理的事件时，神经元就在以超级迅速的速度进行特别地计算。</p>
+<pre><code>神经网络是由简单处理单元构成的大规模并行分布式处理器，天然地具有存储经验支持和使之可用地特性。
+</code></pre><p>理解：简单处理单元：神经元。并行：同时处理多个进程。分布式：将某个进程分为多个子进程交给不同的神经元处理。通过学习获得并且存储经验。</p>
+<pre><code>1. 神经网络是通过学习过程从外界环境中获取知识的。
+2. 互连神经元的连接强度，即突触权值，用于存储获取的知识。
+</code></pre><h2 id="神经网络有用的性质和能力"><a href="#神经网络有用的性质和能力" class="headerlink" title="神经网络有用的性质和能力"></a>神经网络有用的性质和能力</h2><p>（理解可能有误，不能全信）</p>
+<h3 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h3><p>“人工神经元可以是线性或者非线性的”。当神经网络在处理一个进程时，得到的信息和输出的信息（转化为动作）并不是线性依赖关系。</p>
+<h3 id="输入输出映射"><a href="#输入输出映射" class="headerlink" title="输入输出映射"></a>输入输出映射</h3><p>“即教师学习，监督学习。利用带标号的训练样例，通过不断调整突触权值重复训练神经网络，直到神经网络达到对突触权值没有显著修正的稳定状态”。理解为不断得让神经网络获得信息，并且不断地改变突触权值直到输出的信息和目标信息极其相似，并且记录下当时的突触权值。</p>
+<h3 id="自适应"><a href="#自适应" class="headerlink" title="自适应"></a>自适应</h3><p>“神经网络具有调整自身突触权值以适应外界环境编号的固有能力”。在环境变化不大时，神经网络看也很容易进行重新训练。在不稳定环境中，它自身可以设计神经网络使得突触权值随时间实时变化。</p>
+<h3 id="证据响应"><a href="#证据响应" class="headerlink" title="证据响应"></a>证据响应</h3><p>神经网络在获得信息后会先对信息进行模式分类，其不仅可以设计不同的提供选择哪一个特定模式的信息，还可以排除一些模糊的模式，提高分类性能。</p>
+<h3 id="上下文信息"><a href="#上下文信息" class="headerlink" title="上下文信息"></a>上下文信息</h3><p>神经网络的每个神经元都受其它神经元全局活动的潜在影响。</p>
+<h3 id="容错性"><a href="#容错性" class="headerlink" title="容错性"></a>容错性</h3><p>当某个神经元或它的连接坏了，其产生的并不是毁灭性的失败，而是缓慢恶化的过程。因为神经网络信息存储是分布的。</p>
+<h2 id="人脑中神经网络分层"><a href="#人脑中神经网络分层" class="headerlink" title="人脑中神经网络分层"></a>人脑中神经网络分层</h2><p>中枢神经系统</p>
+<p>↑</p>
+<p>区域电路</p>
+<p>↑</p>
+<p>局部电路</p>
+<p>↑</p>
+<p>神经元</p>
+<p>↑</p>
+<p>树突树</p>
+<p>↑</p>
+<p>神经微电路</p>
+<p>↑</p>
+<p>突触</p>
+<p>↑</p>
+<p>分子</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/goodreading_1/" data-id="cjguhg3sj000algwboz1eeli4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

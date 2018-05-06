@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>fengzi2016 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="VUE.JS深度学习笔记进入/离开&amp;amp;列表过渡实质 实质就是动画不同阶段给DOM元素添加或删除不同的class 可用的情况 v-if v-show 动态组件 组件根节点  总结：有普通渲染外的动态生成这个过程才可用 类名分类 v-enter v-enter-active v-enter-to  将enter改成leave就是另外3个 使用示例&amp;lt;div id=&amp;quot;example-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/vue-deep-learning-note/index.html">
+<meta property="og:site_name" content="fengzi2016 blog">
+<meta property="og:description" content="VUE.JS深度学习笔记进入/离开&amp;amp;列表过渡实质 实质就是动画不同阶段给DOM元素添加或删除不同的class 可用的情况 v-if v-show 动态组件 组件根节点  总结：有普通渲染外的动态生成这个过程才可用 类名分类 v-enter v-enter-active v-enter-to  将enter改成leave就是另外3个 使用示例&amp;lt;div id=&amp;quot;example-">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2017-11-25T07:26:21.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fengzi2016 blog">
+<meta name="twitter:description" content="VUE.JS深度学习笔记进入/离开&amp;amp;列表过渡实质 实质就是动画不同阶段给DOM元素添加或删除不同的class 可用的情况 v-if v-show 动态组件 组件根节点  总结：有普通渲染外的动态生成这个过程才可用 类名分类 v-enter v-enter-active v-enter-to  将enter改成leave就是另外3个 使用示例&amp;lt;div id=&amp;quot;example-">
+  
+    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengzi2016 blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ccnu</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-vue-deep-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/vue-deep-learning-note/" class="article-date">
+  <time datetime="2018-05-06T07:14:43.318Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VUE-JS深度学习笔记"><a href="#VUE-JS深度学习笔记" class="headerlink" title="VUE.JS深度学习笔记"></a>VUE.JS深度学习笔记</h1><h2 id="进入-离开-amp-列表过渡"><a href="#进入-离开-amp-列表过渡" class="headerlink" title="进入/离开&amp;列表过渡"></a>进入/离开&amp;列表过渡</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p> 实质就是动画不同阶段给DOM元素添加或删除不同的class</p>
+<h3 id="可用的情况"><a href="#可用的情况" class="headerlink" title="可用的情况"></a>可用的情况</h3><ol>
+<li>v-if</li>
+<li>v-show</li>
+<li>动态组件</li>
+<li>组件根节点</li>
+</ol>
+<p>总结：有普通渲染外的动态生成这个过程才可用</p>
+<h3 id="类名分类"><a href="#类名分类" class="headerlink" title="类名分类"></a>类名分类</h3><p> v-enter<br> v-enter-active<br> v-enter-to</p>
+<p> 将enter改成leave就是另外3个</p>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><pre><code>&lt;div id=&quot;example-1&quot;&gt;
+&lt;button @click=&quot;show = !show&quot;&gt;
+    Toggle render
+&lt;/button&gt;
+&lt;transition name=&quot;slide-fade&quot;&gt;
+    &lt;p v-if=&quot;show&quot;&gt;hello&lt;/p&gt;
+&lt;/transition&gt;
+&lt;/div&gt;
+
+new Vue({
+    el: &apos;#example-1&apos;,
+    data: {
+        show: true
+    }
+})
+ .slide-fade-enter-active {
+        transition: all .3s ease;
+  }
+ .slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+   }
+ .slide-fade-enter, .slide-fade-leave-to
+ transform: translateX(10px);
+        opacity: 0;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/vue-deep-learning-note/" data-id="cjguhg3sw000ilgwbputj2m3i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/06/vue-introduce/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/thinking17-11-29/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/audio-thinking/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/web_application_outline/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 gyf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
