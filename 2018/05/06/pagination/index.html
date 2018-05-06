@@ -1,90 +1,350 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+
+
 
   
-  <title>fengzi2016 blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&amp;apos;/allMovies&amp;apos;).then(function (ans) &amp;#123;    let mynum = parseInt((">
+
+
+<html class="theme-next muse use-motion" lang="Chinese">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&apos;/allMovies&apos;).then(function (ans) &amp;#123;    let mynum = parseInt((ans.data.l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fengzi2016 blog">
+<meta property="og:title" content="学习如何分页">
 <meta property="og:url" content="http://yoursite.com/2018/05/06/pagination/index.html">
 <meta property="og:site_name" content="fengzi2016 blog">
-<meta property="og:description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&amp;apos;/allMovies&amp;apos;).then(function (ans) &amp;#123;    let mynum = parseInt((">
+<meta property="og:description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&apos;/allMovies&apos;).then(function (ans) &amp;#123;    let mynum = parseInt((ans.data.l">
 <meta property="og:locale" content="Chinese">
-<meta property="og:updated_time" content="2017-08-08T13:21:16.186Z">
+<meta property="og:updated_time" content="2018-05-06T07:49:02.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="fengzi2016 blog">
-<meta name="twitter:description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&amp;apos;/allMovies&amp;apos;).then(function (ans) &amp;#123;    let mynum = parseInt((">
+<meta name="twitter:title" content="学习如何分页">
+<meta name="twitter:description" content="学习如何分页在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。 ‘无组’分页采用了jqPaginator插件，源码如下：js部分 12345678910111213141516171819202122232425axios.post(&apos;/allMovies&apos;).then(function (ans) &amp;#123;    let mynum = parseInt((ans.data.l">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/pagination/"/>
+
+
+
+
+
+  <title>学习如何分页 | fengzi2016 blog</title>
   
-    <link rel="alternate" href="/atom.xml" title="fengzi2016 blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0f2601b82368a4ed51e418d9676d3d9b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">fengzi2016 blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">ccnu</a>
-        </h2>
-      
+<body itemscope itemtype="http://schema.org/WebPage" lang="Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fengzi2016 blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
+      
+        <p class="site-subtitle">不走别人的路，走自己的路</p>
+      
   </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-pagination" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/06/pagination/" class="article-date">
-  <time datetime="2018-05-06T07:14:43.292Z" itemprop="datePublished">2018-05-06</time>
-</a>
-    
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
-  <div class="article-inner">
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/pagination/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gyf">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/22490787?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengzi2016 blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习如何分页</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-06T15:14:43+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/06/pagination/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/06/pagination/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
     
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         <h1 id="学习如何分页"><a href="#学习如何分页" class="headerlink" title="学习如何分页"></a>学习如何分页</h1><p><em>在此次项目中我们的童‘总监’做成了分页的功能，在此我想总结一下。</em></p>
 <h2 id="‘无组’分页"><a href="#‘无组’分页" class="headerlink" title="‘无组’分页"></a>‘无组’分页</h2><h3 id="采用了jqPaginator插件，源码如下："><a href="#采用了jqPaginator插件，源码如下：" class="headerlink" title="采用了jqPaginator插件，源码如下："></a>采用了jqPaginator插件，源码如下：</h3><p><strong>js部分</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">axios.post(&apos;/allMovies&apos;).then(function (ans) &#123;</span><br><span class="line">    let mynum = parseInt((ans.data.length/16))+1;</span><br><span class="line">    let str = &apos;&apos;;</span><br><span class="line">    $(&apos;.ttx-my-number&apos;).jqPaginator(&#123;</span><br><span class="line">        totalPages: mynum,</span><br><span class="line">        visiblePages: 20,</span><br><span class="line">        currentPage: 1,</span><br><span class="line">        onPageChange: function (num, type) &#123;</span><br><span class="line">            let str = &apos;&apos;;</span><br><span class="line">            let mycurrentnum = (num-1)*16;</span><br><span class="line">            let myendnum = num*16 - 1;</span><br><span class="line">            if(myendnum &gt; ans.data.length - 1)&#123;</span><br><span class="line">                myendnum = ans.data.length - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            for (let i = mycurrentnum; i &lt;=myendnum; i++) &#123;</span><br><span class="line">                str += &apos;&lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 col-xs-12 ttx-movie&quot;&gt;&apos;;</span><br><span class="line">                str += `&lt;a onclick=&quot;myonclickhrf($&#123;ans.data[i].id&#125;)&quot;&gt;&lt;img class=&quot;center-block ttx-movie-photo&quot; src=&quot;$&#123;ans.data[i].movieimg&#125;&quot; width=&quot;65%&quot; height=&quot;100%&quot; alt=&quot;&quot;&gt;&lt;/a&gt;`;</span><br><span class="line">                str += `&lt;p class=&quot;ttx-movie-text&quot;&gt;&lt;a onclick=&quot;myonclickhrf($&#123;ans.data[i].id&#125;)&quot; &gt;$&#123;ans.data[i].name&#125;&lt;/a&gt;&lt;strong&gt;$&#123;ans.data[i].score&#125;&lt;/strong&gt;&lt;/p&gt;`;</span><br><span class="line">                str += `&lt;/div&gt;`;</span><br><span class="line">            &#125;</span><br><span class="line">            $(&quot;.ttx-movie-container&quot;).empty().append(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">axios.post(<span class="string">'/allMovies'</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">ans</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> mynum = <span class="built_in">parseInt</span>((ans.data.length/<span class="number">16</span>))+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> str = <span class="string">''</span>;</span><br><span class="line">    $(<span class="string">'.ttx-my-number'</span>).jqPaginator(&#123;</span><br><span class="line">        totalPages: mynum,</span><br><span class="line">        visiblePages: <span class="number">20</span>,</span><br><span class="line">        currentPage: <span class="number">1</span>,</span><br><span class="line">        onPageChange: <span class="function"><span class="keyword">function</span> (<span class="params">num, type</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> str = <span class="string">''</span>;</span><br><span class="line">            <span class="keyword">let</span> mycurrentnum = (num<span class="number">-1</span>)*<span class="number">16</span>;</span><br><span class="line">            <span class="keyword">let</span> myendnum = num*<span class="number">16</span> - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(myendnum &gt; ans.data.length - <span class="number">1</span>)&#123;</span><br><span class="line">                myendnum = ans.data.length - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = mycurrentnum; i &lt;=myendnum; i++) &#123;</span><br><span class="line">                str += <span class="string">'&lt;div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ttx-movie"&gt;'</span>;</span><br><span class="line">                str += <span class="string">`&lt;a onclick="myonclickhrf(<span class="subst">$&#123;ans.data[i].id&#125;</span>)"&gt;&lt;img class="center-block ttx-movie-photo" src="<span class="subst">$&#123;ans.data[i].movieimg&#125;</span>" width="65%" height="100%" alt=""&gt;&lt;/a&gt;`</span>;</span><br><span class="line">                str += <span class="string">`&lt;p class="ttx-movie-text"&gt;&lt;a onclick="myonclickhrf(<span class="subst">$&#123;ans.data[i].id&#125;</span>)" &gt;<span class="subst">$&#123;ans.data[i].name&#125;</span>&lt;/a&gt;&lt;strong&gt;<span class="subst">$&#123;ans.data[i].score&#125;</span>&lt;/strong&gt;&lt;/p&gt;`</span>;</span><br><span class="line">                str += <span class="string">`&lt;/div&gt;`</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            $(<span class="string">".ttx-movie-container"</span>).empty().append(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p> <strong>html部分</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-lg-9 col-md-9 col-sm-9 col-xs-9 ttx-right&quot;&gt;</span><br><span class="line">    &lt;ol class=&quot;breadcrumb ttx-bread&quot;&gt;</span><br><span class="line">         &lt;li class=&quot;active&quot;&gt;全部影片&lt;/li&gt;</span><br><span class="line">    &lt;/ol&gt;</span><br><span class="line">    &lt;div class=&quot;row ttx-movie-container&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;nav aria-label=&quot;...&quot;&gt;</span><br><span class="line">        &lt;ul class=&quot;pagination ttx-my-number&quot;&gt;</span><br><span class="line">                          </span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">     &lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-lg-9 col-md-9 col-sm-9 col-xs-9 ttx-right"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ol</span> <span class="attr">class</span>=<span class="string">"breadcrumb ttx-bread"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span>全部影片<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row ttx-movie-container"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nav</span> <span class="attr">aria-label</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"pagination ttx-my-number"</span>&gt;</span></span><br><span class="line">                          </span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>解析</strong></p>
 <p>此次样式上利用了<a href="http://v3.bootcss.com/" title="boostrap" target="_blank" rel="noopener">boostrap框架</a>，js上利用的是<a href="http://jqpaginator.keenwon.com/" title="jqPaginator" target="_blank" rel="noopener">jqPaginator插件</a>。</p>
@@ -137,122 +397,445 @@ currentPage: 1,
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/pagination/" data-id="cjguhg3st000flgwbflzxqwrz" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="gyf Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/load-picture-optimization/" rel="next" title="图片加载优化">
+                <i class="fa fa-chevron-left"></i> 图片加载优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/Private_variables/" rel="prev" title="JS中的私有变量">
+                JS中的私有变量 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
       
       
     </footer>
   </div>
   
-    
-<nav id="article-nav">
   
-    <a href="/2018/05/06/Private_variables/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+  
+
+
+        </div>
         
-          (no title)
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/22490787?v=4&s=460"
+                alt="gyf" />
+            
+              <p class="site-author-name" itemprop="name">gyf</p>
+              <p class="site-description motion-element" itemprop="description">frontend blog 前端技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/fengzi2016" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://user.qzone.qq.com/1820166258/infocenter" target="_blank" title="QQ">
+                    
+                      <i class="fa fa-fw fa-qq"></i>QQ</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/fengzi2016China" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                团队分享
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://share.muxixyz.com/" title="MuXi" target="_blank">MuXi</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习如何分页"><span class="nav-number">1.</span> <span class="nav-text">学习如何分页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#‘无组’分页"><span class="nav-number">1.1.</span> <span class="nav-text">‘无组’分页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#采用了jqPaginator插件，源码如下："><span class="nav-number">1.1.1.</span> <span class="nav-text">采用了jqPaginator插件，源码如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">1.1.2.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展："><span class="nav-number">1.1.3.</span> <span class="nav-text">扩展：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-    </a>
-  
-  
-    <a href="/2018/05/06/page/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">[object Object]</div>
-    </a>
-  
-</nav>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gyf</span>
 
   
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
-    </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/05/06/Cross-page transmission/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/06/audio-thinking/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/06/2017FinalSummary/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/06/web_application_outline/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/06/vue-music-learn/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
-  
-</aside>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 gyf<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/05/06/pagination/';
+          this.page.identifier = '2018/05/06/pagination/';
+          this.page.title = '学习如何分页';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
